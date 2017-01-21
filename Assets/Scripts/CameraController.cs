@@ -29,7 +29,10 @@ public class CameraController : MonoBehaviour {
     private void Awake()
     {
         if (boundaryBoxCoilder != null)
+        {
             updateBoundary(boundaryBoxCoilder);
+            screenRate = (float)Screen.width / Screen.height;
+        }
     }
 
     public void Init(Transform traget, BoxCollider2D boundaryBoxCoilder)
@@ -71,7 +74,7 @@ public class CameraController : MonoBehaviour {
                 if (Input.GetMouseButton(0))
                 {
                     currentPos = Input.mousePosition;
-                    tragetPostion = new Vector3(deltaPos.x / Screen.width * screenRate, deltaPos.y / Screen.height, 0) * Camera.main.orthographicSize * 16;
+                    tragetPostion = new Vector3((deltaPos.x / Screen.width)* screenRate, deltaPos.y / Screen.height, 0) * Camera.main.orthographicSize * 16;
                     tragetPostion = transform.position - tragetPostion;
                     lastPos = currentPos;
                 }
