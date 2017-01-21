@@ -72,7 +72,6 @@ public class CameraController : MonoBehaviour {
                 {
                     currentPos = Input.mousePosition;
                     tragetPostion = new Vector3(deltaPos.x / Screen.width * screenRate, deltaPos.y / Screen.height, 0) * Camera.main.orthographicSize * 16;
-                    tragetPostion = new Vector3(100, 100, 0) * Camera.main.orthographicSize * 16;
                     tragetPostion = transform.position - tragetPostion;
                     lastPos = currentPos;
                 }
