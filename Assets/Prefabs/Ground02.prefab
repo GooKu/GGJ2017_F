@@ -21,8 +21,6 @@ GameObject:
   - component: {fileID: 4189089677398362}
   - component: {fileID: 212018442445971760}
   - component: {fileID: 61651220935896166}
-  - component: {fileID: 82722313988314438}
-  - component: {fileID: 114329346103690130}
   m_Layer: 0
   m_Name: Ground02
   m_TagString: Ground02
@@ -39,6 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4235312335740238}
   - component: {fileID: 61162371908557588}
+  - component: {fileID: 114746338892484084}
+  - component: {fileID: 82666909387285452}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Ground02
@@ -101,12 +101,12 @@ BoxCollider2D:
   m_Offset: {x: -0.7388458, y: 10.766823}
   serializedVersion: 2
   m_Size: {x: 180.84787, y: 40.864944}
---- !u!82 &82722313988314438
+--- !u!82 &82666909387285452
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914334275841754}
+  m_GameObject: {fileID: 1957190025212034}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -181,12 +181,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114329346103690130
+--- !u!114 &114746338892484084
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914334275841754}
+  m_GameObject: {fileID: 1957190025212034}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6144d8bc95d998049ac3e30737c6633c, type: 3}
