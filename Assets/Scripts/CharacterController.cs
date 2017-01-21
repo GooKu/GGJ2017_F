@@ -49,10 +49,12 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void EnableCharacter(int id)
+    public void EnableCharacter(int id, BoxCollider2D boundary, System.EventHandler outOfBounds)
     {
         GameObject character = UnLockCharacterInfoList.Find(x => x.Id == id).gameObject;
         character.SetActive(true);
         character.GetComponent<MouseDrag>().enabled = true;
+        character.GetComponent<BoundcinessController>().SetBoundary(boundary);
+        character.GetComponent<BoundcinessController>().OutOfBounds += outOfBounds;
     }
 }

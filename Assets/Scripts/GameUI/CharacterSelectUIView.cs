@@ -18,7 +18,6 @@ public class CharacterSelectUIView : MonoBehaviour
     {
         itemWidth = sampleItem.GetComponent<RectTransform>().sizeDelta.x;
         itemHeigth = sampleItem.GetComponent<RectTransform>().sizeDelta.y;
-        Debug.Log(itemWidth+", "+ itemHeigth);
     }
 
     public void Open(List<CharacterInfo> characterList)
