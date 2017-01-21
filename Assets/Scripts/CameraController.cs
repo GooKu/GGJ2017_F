@@ -50,8 +50,6 @@ public class CameraController : MonoBehaviour {
         float orthographicSize = GetComponent<Camera>().orthographicSize*2;
         boundary = new Bounds(boundaryBoxCoilder.bounds.center, 
         new Vector3(boundaryBoxCoilder.size.x - (orthographicSize * Screen.width / Screen.height), boundaryBoxCoilder.size.y - orthographicSize, 0));
-
-        Debug.Log(boundary);
     }
 	
 	void Update ()
@@ -73,10 +71,13 @@ public class CameraController : MonoBehaviour {
                 if (Input.GetMouseButton(0))
                 {
                     currentPos = Input.mousePosition;
-                    tragetPostion = new Vector3(deltaPos.x / Screen.width  * screenRate, deltaPos.y / Screen.height , 0)*Camera.main.orthographicSize*16;
+                    tragetPostion = new Vector3(deltaPos.x / Screen.width * screenRate, deltaPos.y / Screen.height, 0) * Camera.main.orthographicSize * 16;
+                    tragetPostion = new Vector3(100, 100, 0) * Camera.main.orthographicSize * 16;
                     tragetPostion = transform.position - tragetPostion;
                     lastPos = currentPos;
                 }
+
+                Debug.Log(transform.position+", "+tragetPostion);
 
                 break;
             case Mode.Stop:
