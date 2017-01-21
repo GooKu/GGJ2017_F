@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BoundcinessController : MonoBehaviour
 {
-    public PhysicsMaterial2D pm;
 	// Use this for initialization
 	void Start () {
         //pm = (PhysicsMaterial2D)Resources.Load("Physics/Character02");
