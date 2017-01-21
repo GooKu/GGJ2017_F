@@ -74,8 +74,8 @@ public class MouseDrag : MonoBehaviour {
 				arrow.SetActive (false);
 			}
 
-			if (Fired != null) {
-				Fired (this, System.EventArgs.Empty);
+			if (this.Fired != null) {
+				this.Fired (this, System.EventArgs.Empty);
 			}
         }
     }
