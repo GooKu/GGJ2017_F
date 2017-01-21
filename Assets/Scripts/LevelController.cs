@@ -91,13 +91,8 @@ public class LevelController : MonoBehaviour {
                 levelUIManager.UpdateCountDownText(countDownTime);
                 break;
             case GameStep.DoFail:
-                if (LevelManager.Singleton != null)
-                    LevelManager.Singleton.ResetLevel();
-                else {
-                    Debug.Log("必須從 Main 開始執行才能重來");
-                    currentStep = GameStep.Non;
-                }
-
+                StartCoroutine(doFail());
+                currentStep = GameStep.Fail;
                 break;
         }
     }
@@ -154,6 +149,21 @@ public class LevelController : MonoBehaviour {
         else
         {
             Debug.Log("必須從 Main 開始執行才能下一關");
+        }
+    }
+
+    private IEnumerator doFail()
+    {
+        characterController.FailHandle();
+
+        yield return new WaitForSeconds(2);
+
+        if (LevelManager.Singleton != null)
+            LevelManager.Singleton.ResetLevel();
+        else
+        {
+            Debug.Log("必須從 Main 開始執行才能重來");
+            currentStep = GameStep.Non;
         }
     }
 }
