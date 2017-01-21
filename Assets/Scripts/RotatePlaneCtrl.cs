@@ -25,7 +25,6 @@ public class RotatePlaneCtrl : MonoBehaviour {
             //    t = 0;
             //}
             r = gameObject.transform.rotation.z;
-            print(r);
             if (r > 0.5 || r < -0.5) { dir *= -1; }
             gameObject.transform.Rotate(new Vector3(0, 0, 1 * dir * speed * Time.deltaTime));
         }
