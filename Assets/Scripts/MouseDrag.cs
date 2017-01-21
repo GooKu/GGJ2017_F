@@ -28,7 +28,7 @@ public class MouseDrag : MonoBehaviour {
 
     void OnMouseDown()
     {
-		if (!this.enabled)
+		if (this.enabled)
         {
             initialPosition = new Vector2(Input.mousePosition.x / Camera.main.pixelWidth, Input.mousePosition.y / Camera.main.pixelHeight);
             initialWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -45,7 +45,7 @@ public class MouseDrag : MonoBehaviour {
     void OnMouseDrag()
     {
 
-		if (!this.enabled) {
+		if (this.enabled) {
 			Vector2 currentPosition = new Vector2 (Input.mousePosition.x / Camera.main.pixelWidth, Input.mousePosition.y / Camera.main.pixelHeight);
 			direction = currentPosition - initialPosition;
 
@@ -64,7 +64,7 @@ public class MouseDrag : MonoBehaviour {
 
     void OnMouseUp()
     {
-		if (!this.enabled)
+		if (this.enabled)
         {
             direction = direction / direction.magnitude;    // Normalize 
             rb.velocity = -direction * speed * 1000 * Time.deltaTime;
