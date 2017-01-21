@@ -21,6 +21,7 @@ public class LevelUIManager : MonoBehaviour
     {
         characterSelectUI.Open(characterList);
         UpdateCountDownText(0);
+        GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
     public void GameStart(float time)
