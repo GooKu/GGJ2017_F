@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4169489584491748}
   - component: {fileID: 212156342843949032}
-  - component: {fileID: 111752725343945018}
+  - component: {fileID: 95301744631102442}
   m_Layer: 0
   m_Name: door
   m_TagString: Untagged
@@ -70,22 +70,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4169489584491748}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 152.575}
---- !u!111 &111752725343945018
-Animation:
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 329.08334}
+--- !u!95 &95301744631102442
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1777307294394446}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 7400000, guid: af851d4de7171b74b9f9e9381c5d8c82, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88ed75ab33de2c4cb7bb4b728d0fae5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!212 &212090044770595562
 SpriteRenderer:
   m_ObjectHideFlags: 1
