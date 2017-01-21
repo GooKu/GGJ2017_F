@@ -48,6 +48,10 @@ public class CameraController : MonoBehaviour {
         currentMode = mode;
     }
 
+	public void UpdateTarget(Transform t){
+		this.traget = t;
+	}
+
     private void updateBoundary(BoxCollider2D boundaryBoxCoilder)
     {
         float orthographicSize = GetComponent<Camera>().orthographicSize*2;
@@ -79,7 +83,7 @@ public class CameraController : MonoBehaviour {
                     lastPos = currentPos;
                 }
 
-                Debug.Log(transform.position+", "+tragetPostion);
+//                Debug.Log(transform.position+", "+tragetPostion);
 
                 break;
             case Mode.Stop:

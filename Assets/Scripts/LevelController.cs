@@ -66,6 +66,7 @@ public class LevelController : MonoBehaviour {
 
 		// TODO: 其他開始 Level 的動作
 		this.cameraController.UpdateMode (CameraController.Mode.FollowTrager);
+		this.cameraController.UpdateTarget (this.characterController.Current);
 
 		this.IsRunnig = true;
 	}
