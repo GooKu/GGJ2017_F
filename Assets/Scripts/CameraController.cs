@@ -24,6 +24,9 @@ public class CameraController : MonoBehaviour {
     private float screenRate;
     private Bounds boundary;
 
+    private float camerOffsetX = 300;
+    private float cameraSpeed = 2;
+
     private void Awake()
     {
         if (boundaryBoxCoilder != null)
@@ -62,7 +65,7 @@ public class CameraController : MonoBehaviour {
         switch (currentMode)
         {
             case Mode.FollowTrager:
-                tragetPostion = new Vector3(traget.position.x, traget.position.y, tragetZ);
+                tragetPostion = new Vector3(traget.position.x+ camerOffsetX, traget.position.y, tragetZ);
                 break;
             case Mode.PlayerControl:
                 if (Input.GetMouseButtonDown(0))
@@ -88,7 +91,7 @@ public class CameraController : MonoBehaviour {
                 return ;
         }
 
-        transform.position = Vector3.Lerp(transform.position, tragetPostion, Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, tragetPostion, Time.deltaTime* cameraSpeed);
 
         if (transform.position.x > boundary.max.x)
             transform.position= new Vector3(boundary.max.x, transform.position.y, tragetZ) ;

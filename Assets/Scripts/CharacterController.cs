@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     public event System.EventHandler Fired;
+    public event System.EventHandler Still;
 
     public Transform Current
     {
@@ -42,10 +43,22 @@ public class CharacterController : MonoBehaviour
     void OnFired(object sender, System.EventArgs e)
     {
         this.Current = (sender as MouseDrag).transform;
+        (sender as MouseDrag).enabled = false;
 
         if (this.Fired != null)
         {
             this.Fired(this, e);
+        }
+        Current.GetComponent<CharacterChecker>().EnableStilCheck(this.OnStill);
+    }
+
+    void OnStill(object sender, System.EventArgs e)
+    {
+        this.Current = (sender as CharacterChecker).transform;
+
+        if (this.Fired != null)
+        {
+            this.Still(this, e);
         }
     }
 

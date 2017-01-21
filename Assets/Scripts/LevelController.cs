@@ -70,13 +70,14 @@ public class LevelController : MonoBehaviour {
         this.cameraController.UpdateMode (CameraController.Mode.Stop);
 		this.cameraController.Init (this.characterController.transform, this.cameraRegion);
         this.cameraRegion.enabled = false;
-		this.characterController.Fired += this.OnFired;
+        this.characterController.Fired += this.OnFired;
+        this.characterController.Still += this.OnStill;
         this.levelUIManager.Init(this.characterController.UnLockCharacterInfoList);
         this.door.Pass += OnPass;
         currentStep = GameStep.WaitForFire;
     }
-
-    private void Update()
+    
+    private void LateUpdate()
     {
         switch (currentStep)
         {
@@ -106,7 +107,12 @@ public class LevelController : MonoBehaviour {
 		this.DoRun ();
 	}
 
-	void DoRun()
+    void OnStill(object sender, System.EventArgs e)
+    {
+        currentStep = GameStep.DoFail;
+    }
+
+    void DoRun()
 	{
         //if (!IsRunnig)
         //    return;
