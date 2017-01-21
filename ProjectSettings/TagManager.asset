@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground01
+  - Ground02
+  - Ground03
   layers:
   - Default
   - TransparentFX
