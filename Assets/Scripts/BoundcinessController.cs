@@ -20,9 +20,27 @@ public class BoundcinessController : MonoBehaviour
         if(collider.tag == "Ground01")
         {
             //pm.bounciness = 1.0f;
-            Debug.Log("Change bounciness");
+            //Debug.Log("Change bounciness");
             //gameObject.collider2D.
             gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 0.8f;
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        }
+        else if (collider.tag == "Ground02")
+        {
+            //pm.bounciness = 1.0f;
+            //Debug.Log("Change bounciness");
+            //gameObject.collider2D.
+            gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 1.0f;
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        }
+        else if (collider.tag == "Ground03")
+        {
+            //pm.bounciness = 1.0f;
+            //Debug.Log("Change bounciness");
+            //gameObject.collider2D.
+            gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 0.6f;
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
             gameObject.GetComponent<CircleCollider2D>().enabled = true;
         }

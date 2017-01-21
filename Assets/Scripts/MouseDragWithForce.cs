@@ -43,8 +43,8 @@ public class MouseDragWithForce : MonoBehaviour
         arrow.transform.rotation = Quaternion.LookRotation(Vector3.forward, currentWorldPosition - transform.position);
         arrow.transform.Rotate(0, 0, -90);
         arrow.transform.localScale = new Vector3(Vector3.Distance(currentWorldPosition, initialWorldPosition) / 200, transform.localScale.y, transform.localScale.z);
-        Debug.Log("currentWorldPosition: " + currentWorldPosition);
-        Debug.Log("initialWorldPosition: " + initialWorldPosition);
+        //Debug.Log("currentWorldPosition: " + currentWorldPosition);
+        //Debug.Log("initialWorldPosition: " + initialWorldPosition);
     }
 
     void OnMouseUp()
