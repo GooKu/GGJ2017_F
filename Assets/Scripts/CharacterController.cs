@@ -21,6 +21,7 @@ public class CharacterController : MonoBehaviour
 
 	void OnFired (object sender, System.EventArgs e)
 	{
+		// TODO: 設定成使用到的物件
 		this.Current = (sender as MouseDrag).transform;
 
 		if (this.Fired != null) {
