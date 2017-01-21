@@ -15,17 +15,19 @@ public class MouseDragWithForce : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        rb.isKinematic = true;
     }
 
     void OnMouseDown()
     {
-        initialPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        initialPosition = new Vector2(Input.mousePosition.x / Camera.main.pixelWidth, Input.mousePosition.y/Camera.main.pixelHeight);
+        
         //Debug.Log(initialPosition);
     }
 
     void OnMouseDrag()
     {
-        Vector2 currentPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector2 currentPosition = new Vector2(Input.mousePosition.x / Camera.main.pixelWidth, Input.mousePosition.y / Camera.main.pixelHeight);
         direction = currentPosition - initialPosition;
         //Debug.Log(cursorPosition);
     }
@@ -34,7 +36,8 @@ public class MouseDragWithForce : MonoBehaviour
     {
 
         //direction = direction / direction.magnitude;    // Normalize 
-        rb.velocity = -direction * speed * Time.deltaTime;
+        rb.velocity = -direction * speed * 1000 * Time.deltaTime;
+        rb.isKinematic = false;
 
     }
 }
