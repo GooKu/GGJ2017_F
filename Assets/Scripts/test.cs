@@ -8,7 +8,6 @@ public class test : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        controller.Init(Traget, new Rect(0, 0,200, 200));
         controller.UpdateMode(CameraController.Mode.FollowTrager);
 //        Debug.Log(Camera.main.fieldOfView);
         //controller.UpdateMode(CameraController.Mode.PlayerControl);
