@@ -94,12 +94,18 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKey (KeyCode.N)) {
+		if (Input.GetKeyUp (KeyCode.N)) {
 			this.NextLevel ();
-		} else if (Input.GetKey (KeyCode.P)) {
+		} else if (Input.GetKeyUp (KeyCode.P)) {
 			this.PreviousLevel ();
-		} else if (Input.GetKey (KeyCode.R)) {
+		} else if (Input.GetKeyUp (KeyCode.R)) {
 			this.ResetLevel ();
+		}
+
+		if (Input.GetKeyUp (KeyCode.T)) {
+			var v = (int)TimeLordConfig.Debug + 1;
+			var vs = Mathf.Repeat ((float)v, 4);
+			TimeLordConfig.Debug = (TimeLordConfig.TimeSpan)((int)vs);
 		}
 	}
 }
