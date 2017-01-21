@@ -47,7 +47,7 @@ public class LevelController : MonoBehaviour {
 	void Start()
 	{
 		this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
-		this.cameraController.Init (this.starter.transform, this.cameraRegion);
+		this.cameraController.Init (this.characterController.transform, this.cameraRegion);
 
 		this.cameraRegion.enabled = false;
 		this.characterController.Fired += this.OnFired;
