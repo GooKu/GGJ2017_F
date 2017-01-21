@@ -33,7 +33,7 @@ public class FanRotate : MonoBehaviour {
     }
     void OnMouseDown()
     {
-        gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip,0.02f);
+        gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip,0.05f);
         mouse_down = 1;
         print(mouse_down);
     }

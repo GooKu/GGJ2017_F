@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ArrowController : MonoBehaviour {
+
+    public AudioClip myAuioClip;
+
     private Vector2 initialPosition;
     private Vector2 offset;
     private Vector2 direction;
@@ -37,7 +40,7 @@ public class ArrowController : MonoBehaviour {
 
     void OnMouseUp()
     {
-
+        gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.1f);
         //direction = direction / direction.magnitude;    // Normalize 
         gameObject.SetActive(false);
     }
