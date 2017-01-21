@@ -42,6 +42,10 @@ public class LevelManager : MonoBehaviour {
 		this.StartCoroutine (this.ToLevel(0, false));
 	}
 
+	public void ResetLevel(){
+		this.StartCoroutine (this.ToLevel(this.CurrentLevel));
+	}
+
 	void Awake(){
 		if (singleton != null) {
 			Debug.LogError ("Multiple LevelManager", this);
@@ -91,9 +95,11 @@ public class LevelManager : MonoBehaviour {
 
 	void Update () {
 		if (Input.GetKey (KeyCode.N)) {
-			NextLevel ();
-		} else if (Input.GetKey(KeyCode.P)){
-			PreviousLevel ();
+			this.NextLevel ();
+		} else if (Input.GetKey (KeyCode.P)) {
+			this.PreviousLevel ();
+		} else if (Input.GetKey (KeyCode.R)) {
+			this.ResetLevel ();
 		}
 	}
 }
