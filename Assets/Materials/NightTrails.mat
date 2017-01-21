@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Trails
+  m_Name: NightTrails
   m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -48,7 +48,7 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: d3467554cb37e48b59be55f6e3ed7f82, type: 3}
+        m_Texture: {fileID: 2800000, guid: da9dd521f5e350c42bf60104b22356fe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -108,7 +108,7 @@ Material:
       second: 0.02
     - first:
         name: _SmoothnessTextureChannel
-      second: 1
+      second: 0
     - first:
         name: _SpecularHighlights
       second: 1
@@ -124,10 +124,10 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.19607843, g: 0.19607843, b: 1, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _TintColor
-      second: {r: 1, g: 1, b: 0.866, a: 0.234}
+      second: {r: 0.5, g: 0.5, b: 0.5, a: 0.23529412}
