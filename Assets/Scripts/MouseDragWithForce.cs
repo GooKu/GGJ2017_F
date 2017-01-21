@@ -46,7 +46,8 @@ public class MouseDragWithForce : MonoBehaviour
             // Arrow control
             Vector3 currentWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             currentWorldPosition.z = 0;
-            arrow.transform.position = new Vector3((currentWorldPosition.x + initialWorldPosition.x) / 2, (currentWorldPosition.y + initialWorldPosition.y) / 2, 0);
+            Vector2 arrowPosition = new Vector3(initialWorldPosition.x + (initialWorldPosition.x - currentWorldPosition.x) / 2, initialWorldPosition.y + (initialWorldPosition.y - currentWorldPosition.y) / 2);
+            arrow.transform.position = new Vector3(arrowPosition.x, arrowPosition.y, 0);
             arrow.transform.rotation = Quaternion.LookRotation(Vector3.forward, currentWorldPosition - transform.position);
             arrow.transform.Rotate(0, 0, -90);
             arrow.transform.localScale = new Vector3(Vector3.Distance(currentWorldPosition, initialWorldPosition) / 200, transform.localScale.y, transform.localScale.z);

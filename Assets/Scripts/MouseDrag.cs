@@ -5,12 +5,13 @@ using UnityEngine;
 public class MouseDrag : MonoBehaviour {
 
     private Vector2 initialPosition;
-    private Vector2 offset;
     private Vector2 direction;
     private Vector3 initialWorldPosition;
+    private GameObject arrow;
 
-    public float speed = 200.0f;
-    public GameObject arrow;
+    public float speed = 50.0f;
+    public GameObject arrowPrefab;
+    public bool isDragingWithForce;
 
 	public event System.EventHandler Fired;
 
@@ -21,9 +22,8 @@ public class MouseDrag : MonoBehaviour {
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.isKinematic = true;
 
-		if (arrow != null) {
-			arrow.SetActive (false);
-		}
+		arrow = Instantiate(arrowPrefab);
+		arrow.SetActive (false);
     }
 
     void OnMouseDown()
@@ -54,8 +54,9 @@ public class MouseDrag : MonoBehaviour {
 			currentWorldPosition.z = 0;
 
 			if (arrow != null) {
-				arrow.transform.position = new Vector3 ((currentWorldPosition.x + initialWorldPosition.x) / 2, (currentWorldPosition.y + initialWorldPosition.y) / 2, 0);
-				arrow.transform.rotation = Quaternion.LookRotation (Vector3.forward, currentWorldPosition - transform.position);
+                Vector2 arrowPosition = new Vector3(initialWorldPosition.x + (initialWorldPosition.x - currentWorldPosition.x) / 2, initialWorldPosition.y + (initialWorldPosition.y - currentWorldPosition.y) / 2);
+                arrow.transform.position = new Vector3(arrowPosition.x, arrowPosition.y, 0);
+                arrow.transform.rotation = Quaternion.LookRotation(Vector3.forward, currentWorldPosition - transform.position);
 				arrow.transform.Rotate (0, 0, -90);
 				arrow.transform.localScale = new Vector3 (Vector3.Distance (currentWorldPosition, initialWorldPosition) / 200, transform.localScale.y, transform.localScale.z);
 			}
@@ -66,8 +67,15 @@ public class MouseDrag : MonoBehaviour {
     {
 		if (this.enabled)
         {
-            direction = direction / direction.magnitude;    // Normalize 
-            rb.velocity = -direction * speed * 1000 * Time.deltaTime;
+            if (!isDragingWithForce)
+            {
+                direction = direction / direction.magnitude;    // Normalize 
+                rb.velocity = -direction * speed * 1000 * Time.deltaTime;
+            }
+            else
+            {
+                rb.velocity = -direction * speed * 4000 * Time.deltaTime;
+            }
             rb.isKinematic = false;
 
 			if (arrow != null) {
