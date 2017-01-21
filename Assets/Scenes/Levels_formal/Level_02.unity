@@ -1583,6 +1583,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1335531555}
+    - target: {fileID: 223305126120679460, guid: e997777b00be4624892ef6562cc54ba0,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e997777b00be4624892ef6562cc54ba0, type: 2}
   m_IsPrefabParent: 0
@@ -2319,9 +2324,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 400, y: 349.43597}
+  m_Offset: {x: 1280, y: 349.43597}
   serializedVersion: 2
-  m_Size: {x: 2080, y: 1428.1539}
+  m_Size: {x: 3840, y: 1428.1539}
 --- !u!114 &1335531555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2612,6 +2617,16 @@ Prefab:
     - target: {fileID: 4755573090216822, guid: efbe53f5b499d6447a3ce07cfb98aca6, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 212365476584430412, guid: efbe53f5b499d6447a3ce07cfb98aca6,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212420953767208394, guid: efbe53f5b499d6447a3ce07cfb98aca6,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efbe53f5b499d6447a3ce07cfb98aca6, type: 2}
