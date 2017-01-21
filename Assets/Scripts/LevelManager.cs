@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
+	[SerializeField]
+	FadeController fadeEffect = null;
+
 	Scene? lastScene = null;
 	bool loading = false;
 
@@ -36,7 +39,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void FirstLevel(){
-		this.StartCoroutine (this.ToLevel(0));
+		this.StartCoroutine (this.ToLevel(0, false));
 	}
 
 	void Awake(){
@@ -47,7 +50,7 @@ public class LevelManager : MonoBehaviour {
 		singleton = this;
 	}
 		
-	IEnumerator ToLevel(int levelIndex){
+	IEnumerator ToLevel(int levelIndex, bool useFade = true){
 
 		if (levelIndex < 0 || levelIndex >= this.TotalLevels) {
 			yield break;
@@ -56,6 +59,10 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		this.loading = true;
+
+		if (this.fadeEffect != null && useFade) {
+			yield return this.fadeEffect.FadeOut ();
+		}
 
 		// TODO: FADE IN FADE OUT
 		if (this.lastScene != null){
@@ -68,6 +75,10 @@ public class LevelManager : MonoBehaviour {
 		var count = SceneManager.sceneCount;
 		yield return SceneManager.LoadSceneAsync(levelIndex+1, LoadSceneMode.Additive);
 		var s = SceneManager.GetSceneAt (count);
+
+		if (this.fadeEffect != null && useFade) {
+			yield return this.fadeEffect.FadeIn ();
+		}
 
 		this.CurrentLevel = levelIndex;
 		this.lastScene = s;
