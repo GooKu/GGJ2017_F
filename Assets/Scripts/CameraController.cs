@@ -24,11 +24,18 @@ public class CameraController : MonoBehaviour {
     private Vector2 lastPos;
     private Vector3 deltaPos { get { return currentPos - lastPos; } }
     private float screenRate;
+    private Bounds boundary;
+
+    private void Awake()
+    {
+        if (boundaryBoxCoilder != null)
+            updateBoundary(boundaryBoxCoilder);
+    }
 
     public void Init(Transform traget, BoxCollider2D boundaryBoxCoilder)
     {
         this.traget = traget;
-        this.boundaryBoxCoilder = boundaryBoxCoilder; ;
+        updateBoundary (boundaryBoxCoilder); ;
         tragetZ = traget.position.z - distance;
         screenRate = (float)Screen.width / Screen.height;
     }
@@ -36,6 +43,15 @@ public class CameraController : MonoBehaviour {
     public void UpdateMode(Mode mode)
     {
         currentMode = mode;
+    }
+
+    private void updateBoundary(BoxCollider2D boundaryBoxCoilder)
+    {
+        float orthographicSize = GetComponent<Camera>().orthographicSize*2;
+        boundary = new Bounds(boundaryBoxCoilder.bounds.center, 
+        new Vector3(boundaryBoxCoilder.size.x - (orthographicSize * Screen.width / Screen.height), boundaryBoxCoilder.size.y - orthographicSize, 0));
+
+        Debug.Log(boundary);
     }
 	
 	void Update ()
@@ -69,14 +85,14 @@ public class CameraController : MonoBehaviour {
 
         transform.position = Vector3.Lerp(transform.position, tragetPostion, Time.deltaTime);
 
-        if (transform.position.x > boundaryBoxCoilder.bounds.max.x)
-            transform.position= new Vector3( boundaryBoxCoilder.bounds.max.x, transform.position.y, tragetZ) ;
-        else if (transform.position.x < boundaryBoxCoilder.bounds.min.x)
-            transform.position = new Vector3(boundaryBoxCoilder.bounds.min.x, transform.position.y, tragetZ);
+        if (transform.position.x > boundary.max.x)
+            transform.position= new Vector3(boundary.max.x, transform.position.y, tragetZ) ;
+        else if (transform.position.x < boundary.min.x)
+            transform.position = new Vector3(boundary.min.x, transform.position.y, tragetZ);
 
-        if (transform.position.y > boundaryBoxCoilder.bounds.max.y)
-            transform.position = new Vector3(transform.position.x, boundaryBoxCoilder.bounds.max.y, tragetZ);
-        else if (transform.position.y < boundaryBoxCoilder.bounds.min.y)
-            transform.position = new Vector3(transform.position.x, boundaryBoxCoilder.bounds.min.y, tragetZ);
+        if (transform.position.y > boundary.max.y)
+            transform.position = new Vector3(transform.position.x, boundary.max.y, tragetZ);
+        else if (transform.position.y < boundary.min.y)
+            transform.position = new Vector3(transform.position.x, boundary.min.y, tragetZ);
     }
 }
