@@ -34,24 +34,29 @@ public class LevelController : MonoBehaviour {
 	[SerializeField]
 	BoxCollider2D cameraRegion;
 
-	void Reset(){
+    [SerializeField]
+    private LevelUIManager levelUIManager;
+
+    void Reset(){
 		this.characterController = this.transform.GetComponentInChildren<CharacterController> ();
 		this.cameraController = this.transform.GetComponentInChildren<CameraController> ();
-		this.cameraRegion = this.GetComponent<BoxCollider2D> ();
-	}
+        this.cameraRegion = this.GetComponent<BoxCollider2D>();
+        this.levelUIManager = this.GetComponentInChildren<LevelUIManager>();
+    }
 
-	void Awake(){
+    void Awake(){
 		
 	}
 
 	void Start()
 	{
-		this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
+		this.cameraController.UpdateMode (CameraController.Mode.Stop);
 		this.cameraController.Init (this.characterController.transform, this.cameraRegion);
 
 		this.cameraRegion.enabled = false;
 		this.characterController.Fired += this.OnFired;
-	}
+        this.levelUIManager.Init(this.characterController.UnLockCharacterInfoList);
+    }
 
 	void OnFired (object sender, System.EventArgs e)
 	{
@@ -70,6 +75,13 @@ public class LevelController : MonoBehaviour {
 
 		this.IsRunnig = true;
 	}
+
+    public void OnSelectCharacter(GameObject item)
+    {
+        this.levelUIManager.GameStart();
+        this.cameraController.UpdateMode(CameraController.Mode.PlayerControl);
+        this.characterController.EnableCharacter(item.GetComponent<CharacterSelectItemView>().SelectedId);
+    }
 }
 
 public static class LevelControllerUtility{
