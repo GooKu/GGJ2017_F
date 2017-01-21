@@ -933,7 +933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   traget: {fileID: 205883050}
   boundaryBoxCoilder: {fileID: 1843328212}
-  currentMode: 0
+  currentMode: 1
 --- !u!1 &1335531552
 GameObject:
   m_ObjectHideFlags: 0
