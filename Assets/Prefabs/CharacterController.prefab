@@ -458,7 +458,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 200
-  arrow: {fileID: 0}
+  arrowPrefab: {fileID: 1258595181943264, guid: 7778c44395ecdc24ca7ddfa05f9165cd,
+    type: 2}
+  isDragingWithForce: 0
 --- !u!114 &114550985161890618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,7 +472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b233fb3b96813c4b88068457770c987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pm: {fileID: 0}
 --- !u!114 &114688118679259688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -482,7 +483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b233fb3b96813c4b88068457770c987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pm: {fileID: 0}
 --- !u!114 &114703570102008176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -536,7 +536,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 200
-  arrow: {fileID: 0}
+  arrowPrefab: {fileID: 1258595181943264, guid: 7778c44395ecdc24ca7ddfa05f9165cd,
+    type: 2}
+  isDragingWithForce: 0
 --- !u!212 &212452864623329514
 SpriteRenderer:
   m_ObjectHideFlags: 1
