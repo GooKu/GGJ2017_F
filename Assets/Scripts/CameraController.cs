@@ -10,18 +10,24 @@ public class CameraController : MonoBehaviour {
         Stop
     }
 
-    private float distance = 10;
+    private float distance = 250;
 
     private Transform traget;
     private Rect boundary;
     private Mode currentMode;
     private float tragetZ;
+    private Vector3 tragetPostion;
+    public Vector2 currentPos;
+    public Vector2 lastPos;
+    public Vector3 deltaPos { get { return currentPos - lastPos; } }
+    private float screenRate;
 
     public void Init(Transform traget, Rect boundary)
     {
         this.traget = traget;
         this.boundary = boundary;
         tragetZ = traget.position.z - distance;
+        screenRate = (float)Screen.width / Screen.height;
     }
 
     public void UpdateMode(Mode mode)
@@ -34,13 +40,31 @@ public class CameraController : MonoBehaviour {
         switch (currentMode)
         {
             case Mode.FollowTrager:
-                transform.position = Vector3.Lerp(transform.position, new Vector3(traget.position.x, traget.position.y, tragetZ), Time.deltaTime);
+                tragetPostion = new Vector3(traget.position.x, traget.position.y, tragetZ);
                 break;
             case Mode.PlayerControl:
+                if (Input.GetMouseButtonDown(0))
+                {
+                    currentPos = lastPos = Input.mousePosition;
+                    return;
+                }
+
+                tragetPostion = transform.position;
+
+                if (Input.GetMouseButton(0))
+                {
+                    currentPos = Input.mousePosition;
+                    tragetPostion = new Vector3(deltaPos.x / Screen.width  * screenRate, deltaPos.y / Screen.height , 0)*Camera.main.orthographicSize*16;
+                    tragetPostion = transform.position - tragetPostion;
+                    lastPos = currentPos;
+                }
+
                 break;
             case Mode.Stop:
-                break;
+                return ;
         }
+
+        transform.position = Vector3.Lerp(transform.position, tragetPostion, Time.deltaTime);
 
         if (transform.position.x > boundary.xMax)
             transform.position= new Vector3( boundary.xMax, transform.position.y, tragetZ) ;
