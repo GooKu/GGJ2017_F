@@ -19,7 +19,7 @@ public class Ground02Ctrl : MonoBehaviour {
     void OnCollisionExit2D(Collision2D Coll)
     {
         gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.1f);
-        rb = Coll.gameObject.GetComponent<Rigidbody2D>();
-        rb.velocity += new Vector2(0, 200);
+        //rb = Coll.gameObject.GetComponent<Rigidbody2D>();
+        //rb.velocity += new Vector2(0, 200);
     }
 }

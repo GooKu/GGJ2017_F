@@ -19,14 +19,13 @@ public class Ground03Ctrl : MonoBehaviour {
     }
     void OnCollisionEnter2D(Collision2D Coll)
     {
-        gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 0.8f;
-        Coll.collider.bounciness = 0.01f;
+        //gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 0.5f;
     }
     void OnCollisionExit2D(Collision2D Coll)
     {
         gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.1f);
 
-        rb = Coll.gameObject.GetComponent<Rigidbody2D>();
-        rb.velocity += new Vector2(0, -100);
+        //rb = Coll.gameObject.GetComponent<Rigidbody2D>();
+        //rb.velocity += new Vector2(0, -100);
     }
 }
