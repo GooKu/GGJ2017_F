@@ -25,11 +25,6 @@ public class CharacterChecker : MonoBehaviour
 
     private void stillCheck()
     {
-        Debug.Log(rigidbody.velocity.magnitude);
-        Debug.Log(stillCheckVect.magnitude);
-        Debug.Log(Mathf.Min(rigidbody.velocity.magnitude, stillCheckVect.magnitude));
-        Debug.Log(currentCheckTime);
-
         if (rigidbody.velocity.magnitude != Mathf.Min(rigidbody.velocity.magnitude, stillCheckVect.magnitude))
         {
             currentCheckTime = 0;
