@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TrailController : MonoBehaviour {
-    enum Type
-    {
-        dayTime = 0,
-        Twilight = 1,
-        night = 2
-    }
 
-    public Material[] materials;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	TrailRenderer trail;
+
+	[SerializeField]
+	Material[] materials;
+
+	void Awake(){
+		this.trail = this.GetComponent<TrailRenderer> (); 
+		TimeLordConfig.Changed += this.OnChanged;
+		this.Invalidate ();
 	}
 
-    void SetMaterial(Type dayStatus)
-    {
-        GetComponent<TrailRenderer>().sharedMaterial = materials[(int)dayStatus];
-    }
+	void Invalidate()
+	{
+		var index = (int)TimeLordConfig.Current - 1;
+		this.trail.sharedMaterial = materials[index];
+	}
+
+	void OnDestroy(){
+		TimeLordConfig.Changed -= this.OnChanged;
+	}
+
+	void OnChanged (object sender, System.EventArgs e)
+	{
+		this.Invalidate ();
+	}
 }
