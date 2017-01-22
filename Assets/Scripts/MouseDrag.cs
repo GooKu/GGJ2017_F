@@ -24,6 +24,7 @@ public class MouseDrag : MonoBehaviour {
 
 		arrow = Instantiate(arrowPrefab);
 		arrow.SetActive (false);
+        direction = Vector3.zero;
     }
 
     void OnMouseDown()
@@ -69,7 +70,7 @@ public class MouseDrag : MonoBehaviour {
         {
             if (!isDragingWithForce)
             {
-                direction = direction / direction.magnitude;    // Normalize 
+                direction = direction.normalized;
                 rb.velocity = -direction * speed * 1000 * Time.deltaTime;
             }
             else
@@ -79,7 +80,8 @@ public class MouseDrag : MonoBehaviour {
             rb.isKinematic = false;
 
 			if (arrow != null) {
-				arrow.SetActive (false);
+				Destroy(arrow);
+
 			}
 
 			if (this.Fired != null) {

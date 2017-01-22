@@ -9,13 +9,14 @@ public class BoundcinessController : MonoBehaviour
     private Bounds boundary;
 
     // Use this for initialization
-    void Start () {
-        //pm = (PhysicsMaterial2D)Resources.Load("Physics/Character02");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if(boundary == null)
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (boundary == null)
         {
             Debug.Log("今天的我, 沒有極限^.<");
         }
@@ -24,18 +25,18 @@ public class BoundcinessController : MonoBehaviour
             if (transform.position.x > boundary.max.x ||
                 transform.position.x < boundary.min.x ||
                 transform.position.y > boundary.max.y ||
-                transform.position.y < boundary.min.y) {
-                if(OutOfBounds != null)
+                transform.position.y < boundary.min.y)
+            {
+                if (OutOfBounds != null)
                     OutOfBounds(this, System.EventArgs.Empty);
                 OutOfBounds = null;
             }
         }
-
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.tag == "Ground01")
+        if (collider.tag == "Ground01")
         {
             //pm.bounciness = 1.0f;
             //Debug.Log("Change bounciness");
@@ -52,6 +53,11 @@ public class BoundcinessController : MonoBehaviour
             gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 1.0f;
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
             gameObject.GetComponent<CircleCollider2D>().enabled = true;
+
+            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+            if (rb.velocity.y < 0)
+                rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y * 1.5f);
+
         }
         else if (collider.tag == "Ground03")
         {
@@ -67,7 +73,7 @@ public class BoundcinessController : MonoBehaviour
     void OnDestroy()
     {
         gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 1.0f;
-            
+
     }
 
     public void SetBoundary(BoxCollider2D boundaryBoxCoilder)
