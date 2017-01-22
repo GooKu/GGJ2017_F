@@ -7,8 +7,15 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private Sprite failSprite;
 
+	/// <summary>
+	/// 飛出去
+	/// </summary>
     public event System.EventHandler Fired;
-    public event System.EventHandler Still;
+
+	/// <summary>
+	/// 掛了
+	/// </summary>
+	public event System.EventHandler Died;
 
     public Transform Current
     {
@@ -60,46 +67,45 @@ public class CharacterController : MonoBehaviour
 
     void OnStill(object sender, System.EventArgs e)
     {
+		// TODO: 
         this.Current = (sender as CharacterChecker).transform;
 
         if (this.Fired != null)
         {
-            this.Still(this, e);
+           // this.Still(this, e);
         }
     }
 
-    public void FailHandle()
+	public IEnumerator FailHandle()
     {
         if (failSprite == null)
-            return;
+			yield break;
         Current.GetComponent<Rigidbody2D>().isKinematic = true;
         Current.GetComponent<SpriteRenderer>().sprite = failSprite;
+
+		yield return new WaitForSeconds (2f);
     }
 
-    public void EnableCharacter(int id, BoxCollider2D boundary, System.EventHandler outOfBounds)
+    public void EnableCharacter(int id, BoxCollider2D boundary)
     {
         GameObject character = UnLockCharacterInfoList.Find(x => x.Id == id).gameObject;
         character.SetActive(true);
         character.GetComponent<MouseDrag>().enabled = true;
         character.GetComponent<BoundcinessController>().SetBoundary(boundary);
-        character.GetComponent<BoundcinessController>().OutOfBounds += outOfBounds;
+
+		// TODO:
+        // character.GetComponent<BoundcinessController>().OutOfBounds += outOfBounds;
     }
 
-    public void PlayStartAnim(System.Action callBack)
+	public IEnumerator PlayStartAnim(int charId)
     {
-        StartCoroutine(playStartAnim(callBack));
-    }
+		GameObject animObj = transform.Find("StartAnim").gameObject;
+		animObj.SetActive(true);
 
-    private IEnumerator playStartAnim(System.Action callBack)
-    {
-        GameObject animObj = transform.Find("StartAnim").gameObject;
-        animObj.SetActive(true);
+		while(isPlayingStartAnim)
+			yield return null;
 
-        while(isPlayingStartAnim)
-            yield return null;
-
-        animObj.SetActive(false);
-        callBack();
+		animObj.SetActive(false);
     }
 
     public void StartAnimPlay()

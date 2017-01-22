@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 114796215901555804}
   - component: {fileID: 114642956516370498}
   - component: {fileID: 114509295267151366}
+  - component: {fileID: 114806983175966432}
   m_Layer: 0
   m_Name: UICanvas
   m_TagString: Untagged
@@ -397,8 +398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1401d977a82ec6a4bb2cecd9536348f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterSelectUI: {fileID: 114752520348091178}
   countDownText: {fileID: 114512999402323954}
+  characterSelector: {fileID: 114806983175966432}
 --- !u!114 &114512999402323954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -567,6 +568,18 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+--- !u!114 &114806983175966432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1792959769789370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c5c82162dbd84fc3a717973eda29e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterSelectUI: {fileID: 114752520348091178}
 --- !u!114 &114956040475443986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -606,8 +619,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnSelectCharacter
+      - m_Target: {fileID: 114806983175966432}
+        m_MethodName: EndSelect
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1108618833940756}

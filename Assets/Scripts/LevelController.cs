@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour {
 
-	//public event System.EventHandler RunStarted;
+	public event System.EventHandler RunStarted;
 
-	//private bool run = false;
+	private bool run = false;
 
-	//public bool IsRunnig {
-	//	get{
-	//		return this.run;
-	//	}
-	//	private set{
-	//		if (this.run != value) {
-	//			this.run = value;
+	public bool IsRunnig {
+		get{
+			return this.run;
+		}
+		private set{
+			if (this.run != value) {
+				this.run = value;
 
-	//			if (value) {
-	//				if (this.RunStarted != null) {
-	//					this.RunStarted (this, System.EventArgs.Empty);
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
+				if (value) {
+					if (this.RunStarted != null) {
+						this.RunStarted (this, System.EventArgs.Empty);
+					}
+				}
+			}
+		}
+	}
 
+	[Header("Core")]
+	[SerializeField]
+	private float timeLimit = 15;
+
+	[Header("Components")]
 	[SerializeField]
 	CharacterController characterController;
 
@@ -40,24 +45,11 @@ public class LevelController : MonoBehaviour {
     [SerializeField]
     private Door door;
 
-    [SerializeField]
-    private float timeLimit = 15;
 
-    private float countDownTime;
-
-    private enum GameStep
-    {
-        Non,
-        OnSelectCharacter,
-        WaitForFire,
-        OnRunning,
-        Pass,
-        DoFail,
-        Fail
-    }
-    private GameStep currentStep = GameStep.Non;
-
-    private int currentSelectId;
+	private bool passed = false;
+	private bool fired = false;
+	private bool died = false;
+	private bool showDie = true;
 
     void Reset(){
 		this.characterController = this.transform.GetComponentInChildren<CharacterController> ();
@@ -69,115 +61,118 @@ public class LevelController : MonoBehaviour {
 
 	void Start()
 	{
-        this.cameraController.UpdateMode (CameraController.Mode.Stop);
+		this.StartCoroutine (this.FlowCoroutine());
+    }
+
+	IEnumerator FlowCoroutine()
+	{
+		var infinity = this.timeLimit <= 0;
+
+		// 初始化
+		this.cameraController.UpdateMode (CameraController.Mode.Stop);
 		this.cameraController.Init (this.characterController.transform, this.cameraRegion);
-        this.cameraRegion.enabled = false;
-        this.characterController.Fired += this.OnFired;
-        this.characterController.Still += this.OnStill;
-        this.levelUIManager.Init(this.characterController.UnLockCharacterInfoList);
-        this.door.Pass += OnPass;
-        currentStep = GameStep.WaitForFire;
-    }
-    
-    private void LateUpdate()
-    {
-        switch (currentStep)
-        {
-            case GameStep.OnRunning:
-                countDownTime -= Time.deltaTime;
-                if (countDownTime <= 0)
-                {
-                    countDownTime = 0;
-                    currentStep = GameStep.DoFail;
-                }
-                levelUIManager.UpdateCountDownText(countDownTime);
-                break;
-            case GameStep.DoFail:
-                StartCoroutine(doFail());
-                currentStep = GameStep.Fail;
-                break;
-        }
-    }
 
-    void OnFired (object sender, System.EventArgs e)
-	{
-		this.DoRun ();
-	}
+		this.cameraRegion.enabled = false;
+		this.characterController.Fired += this.OnFired;
+		this.characterController.Died += this.OnDied;
+		this.door.Passed += this.OnPassed;
 
-    void OnStill(object sender, System.EventArgs e)
-    {
-        currentStep = GameStep.DoFail;
-    }
+		// 開啟選單
+		var charList = this.characterController.UnLockCharacterInfoList;
+		var charSelector = this.levelUIManager.CharacterSelector;
+		charSelector.BeginSelect(charList);
+		while (charSelector.IsSelecting) {
+			yield return null;
+		}
 
-    void DoRun()
-	{
-        //if (!IsRunnig)
-        //    return;
+		var charId = charSelector.CharaterId;
 
-		if (currentStep != GameStep.WaitForFire) 
-			return;
+		// 播放開始動畫
+		yield return this.StartCoroutine(this.characterController.PlayStartAnim(charId));
 
-		// TODO: 其他開始 Level 的動作
+		// 瀏覽模式
+		this.cameraRegion.enabled = true;//gooku: tmp enable for get correct  bounds;
+		{
+			this.levelUIManager.SetCountDown (this.timeLimit, infinity);
+			this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
+			this.characterController.EnableCharacter (charId, this.cameraRegion);
+		}
+		this.cameraRegion.enabled = false;
+
+		// 等發射
+		while (!this.fired) {
+			yield return null;
+		}
+
+		// 發射初始化
 		this.cameraController.UpdateMode (CameraController.Mode.FollowTrager);
 		this.cameraController.UpdateTarget (this.characterController.Current);
 
-        //this.IsRunnig = true;
-        currentStep =  GameStep.OnRunning;
-    }
+		this.IsRunnig = true;
 
-    public void OnSelectCharacter(GameObject item)
+		// 等遊戲結束
+		var endTime = Time.time + this.timeLimit;
+		while (!this.passed) {
+			yield return null;
+
+			if ((Time.time >= endTime && !infinity) || this.died) {
+				// 時間限制到，演出失敗動畫
+
+				if (this.showDie) {
+					yield return this.StartCoroutine (this.characterController.FailHandle ());
+				}
+
+				if (LevelManager.Singleton != null)
+				{
+					LevelManager.Singleton.ResetLevel();
+				}
+				else
+				{
+					Debug.Log("必須從 Main 開始執行才能下一關");
+				}
+
+				yield break;
+			}
+
+			this.levelUIManager.SetCountDown(this.timeLimit, infinity);
+		}
+
+		// 過關演出處理
+
+		// 處理結束
+		if (LevelManager.Singleton != null)
+		{
+			LevelManager.Singleton.NextLevel();
+		}
+		else
+		{
+			Debug.Log("必須從 Main 開始執行才能下一關");
+		}
+
+	}
+    
+    void OnFired (object sender, System.EventArgs e)
+	{
+		this.fired = true;
+	}
+
+    void OnDied(object sender, System.EventArgs e)
     {
-        countDownTime = timeLimit;
-        currentSelectId = item.GetComponent<CharacterSelectItemView>().SelectedId;
-        this.levelUIManager.GameStart(countDownTime);
-        this.characterController.PlayStartAnim(startAnimFinishHandle);
+		this.died = true;
     }
 
-    private void startAnimFinishHandle()
-    {
-        this.cameraController.UpdateMode(CameraController.Mode.PlayerControl);
-        this.cameraRegion.enabled = true;//gooku: tmp enable for get correct  bounds;
-        this.characterController.EnableCharacter(currentSelectId, this.cameraRegion, OutOfBoundss);
-        this.cameraRegion.enabled = false;
-    }
-
-    void OutOfBoundss(object sender, System.EventArgs e)
-    {
-        currentStep = GameStep.DoFail;
-    }
-
-    void OnPass(object sender, System.EventArgs e)
-    {
-        currentStep = GameStep.Pass;
-
-        if (LevelManager.Singleton != null)
-        {
-            LevelManager.Singleton.NextLevel();
-        }
-        else
-        {
-            Debug.Log("必須從 Main 開始執行才能下一關");
-        }
-    }
-
-    private IEnumerator doFail()
-    {
-        characterController.FailHandle();
-
-        yield return new WaitForSeconds(2);
-
-        if (LevelManager.Singleton != null)
-            LevelManager.Singleton.ResetLevel();
-        else
-        {
-            Debug.Log("必須從 Main 開始執行才能重來");
-            currentStep = GameStep.Non;
-        }
-    }
+	void OnPassed (object sender, System.EventArgs e)
+	{
+		this.passed = true;
+	}
 }
 
 public static class LevelControllerUtility{
 	public static LevelController GetLevelController(this GameObject go){
+		return go.transform.root.GetComponent<LevelController> ();
+	}
+
+	public static LevelController GetLevelController(this MonoBehaviour go){
 		return go.transform.root.GetComponent<LevelController> ();
 	}
 }
