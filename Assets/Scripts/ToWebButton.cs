@@ -8,6 +8,10 @@ public class ToWebButton : AnimButton {
 
 	protected override void Do ()
 	{
-		Application.OpenURL (this.url);
-	}
+#if UNITY_WEBGL
+        Application.ExternalCall("openLink", this.url);
+#else
+        Application.OpenURL (this.url);
+#endif
+    }
 }

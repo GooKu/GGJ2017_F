@@ -72,7 +72,10 @@ public class LevelManager : MonoBehaviour {
 		this.loading = true;
 
         // Clear
-        GameDataManager.Instance.ClearTrails();
+        if (levelIndex != this.CurrentLevel)
+        {
+            GameDataManager.Instance.ClearTrails();
+        }
 
         // Fade..
         if (this.fadeEffect != null && useFade) {
