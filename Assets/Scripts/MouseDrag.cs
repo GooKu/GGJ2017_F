@@ -61,7 +61,7 @@ public class MouseDrag : MonoBehaviour {
 
 			if (arrow != null) {
                 Vector2 arrowPosition = new Vector3(initialWorldPosition.x + (initialWorldPosition.x - currentWorldPosition.x) / 2, initialWorldPosition.y + (initialWorldPosition.y - currentWorldPosition.y) / 2);
-                arrow.transform.position = new Vector3(arrowPosition.x, arrowPosition.y, -100);
+                arrow.transform.position = new Vector3(arrowPosition.x, arrowPosition.y, -1);
                 arrow.transform.rotation = Quaternion.LookRotation(Vector3.forward, currentWorldPosition - transform.position);
 				arrow.transform.Rotate (0, 0, -90);
 				arrow.transform.localScale = new Vector3 (Vector3.Distance (currentWorldPosition, initialWorldPosition) / 200, transform.localScale.y, transform.localScale.z);
