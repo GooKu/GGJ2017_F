@@ -24,8 +24,6 @@ public class MouseDrag : MonoBehaviour {
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.isKinematic = true;
 
-		arrow = Instantiate(arrowPrefab);
-		arrow.SetActive (false);
         direction = Vector3.zero;
     }
 
@@ -33,6 +31,8 @@ public class MouseDrag : MonoBehaviour {
     {
 		if (this.enabled)
         {
+            arrow = Instantiate(arrowPrefab);
+            arrow.SetActive(false);
             initialPosition = new Vector2(Input.mousePosition.x / Camera.main.pixelWidth, Input.mousePosition.y / Camera.main.pixelHeight);
             initialWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             initialWorldPosition.z = 0;
@@ -74,7 +74,7 @@ public class MouseDrag : MonoBehaviour {
     {
 		if (this.enabled)
         {
-            if (direction.magnitude > 10)
+            if (direction.magnitude > 0.1)
             {
                 if (!isDragingWithForce)
                 {
@@ -87,12 +87,6 @@ public class MouseDrag : MonoBehaviour {
                 }
                 rb.isKinematic = false;
 
-                if (arrow != null)
-                {
-                    Destroy(arrow);
-
-                }
-
                 if (this.Fired != null)
                 {
                     this.Fired(this, System.EventArgs.Empty);
@@ -104,6 +98,11 @@ public class MouseDrag : MonoBehaviour {
                 {
                     this.FiringCancel(this, System.EventArgs.Empty);
                 }
+            }
+            if (arrow != null)
+            {
+                Destroy(arrow);
+
             }
         }
     }
