@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditorInternal;
+using UnityEditor.SceneManagement;
+#endif
+
 public class LevelManager : MonoBehaviour {
 
 	[SerializeField]
@@ -90,6 +96,33 @@ public class LevelManager : MonoBehaviour {
 	}
 		
 	void Start () {
+		#if UNITY_EDITOR
+		if (SceneManager.sceneCount > 1){
+			// 編輯模式
+			var targetScene = new Scene();
+			var buildIndex = -1;
+			var buildScenes = EditorBuildSettings.scenes;
+			for (var i = 0; i < SceneManager.sceneCount; i++){
+				var s = SceneManager.GetSceneAt(i);
+				if (s.buildIndex != 0){
+					buildIndex = s.buildIndex;
+					targetScene = s;
+					break;
+				}
+			}
+
+			if (buildIndex == -1){
+				Debug.LogWarning("場景未加入到 BuildSettings, 無法正常啟用 LevelManager");
+			}
+			else
+			{
+				this.CurrentLevel = buildIndex - 1;
+				this.lastScene = targetScene;
+				return;
+			}
+		}
+		#endif
+
 		this.FirstLevel ();
 	}
 
