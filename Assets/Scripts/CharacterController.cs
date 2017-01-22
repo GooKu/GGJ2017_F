@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    [SerializeField]
+    private Sprite failSprite;
+
     public event System.EventHandler Fired;
     public event System.EventHandler Still;
 
@@ -60,6 +63,14 @@ public class CharacterController : MonoBehaviour
         {
             this.Still(this, e);
         }
+    }
+
+    public void FailHandle()
+    {
+        if (failSprite == null)
+            return;
+        Current.GetComponent<Rigidbody2D>().isKinematic = true;
+        Current.GetComponent<SpriteRenderer>().sprite = failSprite;
     }
 
     public void EnableCharacter(int id, BoxCollider2D boundary, System.EventHandler outOfBounds)
