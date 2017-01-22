@@ -18,7 +18,7 @@ public class AudioFadeInOut : MonoBehaviour {
         time += Time.deltaTime;
         if(time < threshold)
         {
-            audio.volume = Mathf.Lerp(0.0f, 0.8f, time / threshold);
+            audio.volume = Mathf.Lerp(0.0f, 0.1f, time / threshold);
         }
         if(!audio.isPlaying)
         {
