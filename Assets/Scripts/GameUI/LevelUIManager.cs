@@ -28,6 +28,7 @@ public class LevelUIManager : MonoBehaviour
 	void Awake()
 	{
 		GetComponent<Canvas>().worldCamera = Camera.main;
+		this.countDownText.text = string.Empty;
 	}
 		
 	public void SetCountDown(float time, bool infinity)
