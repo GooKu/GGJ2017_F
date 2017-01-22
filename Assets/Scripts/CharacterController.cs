@@ -7,15 +7,17 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private Sprite failSprite;
 
-	/// <summary>
-	/// 飛出去
-	/// </summary>
+    /// <summary>
+    /// 飛出去
+    /// </summary>
     public event System.EventHandler Fired;
+    public event System.EventHandler Firing;
+    public event System.EventHandler FiringCancel;
 
-	/// <summary>
-	/// 掛了
-	/// </summary>
-	public event System.EventHandler Died;
+    /// <summary>
+    /// 掛了
+    /// </summary>
+    public event System.EventHandler Died;
 
     public Transform Current
     {
@@ -49,6 +51,8 @@ public class CharacterController : MonoBehaviour
                 continue;
 
             md.GetComponent<MouseDrag>().Fired += this.OnFired;
+            md.GetComponent<MouseDrag>().Firing += this.OnFiring;
+            md.GetComponent<MouseDrag>().FiringCancel += this.OnFiringCancel;
         }
         transform.Find("StartAnim").gameObject.SetActive(false);
     }
@@ -65,25 +69,40 @@ public class CharacterController : MonoBehaviour
         Current.GetComponent<CharacterChecker>().EnableStilCheck(this.OnStill);
     }
 
+    void OnFiring(object sender, System.EventArgs e)
+    {
+        if (this.Firing != null)
+        {
+            this.Firing(this, e);
+        }
+    }
+
+    void OnFiringCancel(object sender, System.EventArgs e)
+    {
+        if (this.FiringCancel != null)
+        {
+            this.FiringCancel(this, e);
+        }
+    }
     void OnStill(object sender, System.EventArgs e)
     {
-		// TODO: 
+        // TODO: 
         this.Current = (sender as CharacterChecker).transform;
 
         if (this.Fired != null)
         {
-           // this.Still(this, e);
+            // this.Still(this, e);
         }
     }
 
-	public IEnumerator FailHandle()
+    public IEnumerator FailHandle()
     {
         if (failSprite == null)
-			yield break;
+            yield break;
         Current.GetComponent<Rigidbody2D>().isKinematic = true;
         Current.GetComponent<SpriteRenderer>().sprite = failSprite;
 
-		yield return new WaitForSeconds (2f);
+        yield return new WaitForSeconds(2f);
     }
 
     public void EnableCharacter(int id, BoxCollider2D boundary)
@@ -93,19 +112,19 @@ public class CharacterController : MonoBehaviour
         character.GetComponent<MouseDrag>().enabled = true;
         character.GetComponent<BoundcinessController>().SetBoundary(boundary);
 
-		// TODO:
+        // TODO:
         // character.GetComponent<BoundcinessController>().OutOfBounds += outOfBounds;
     }
 
-	public IEnumerator PlayStartAnim(int charId)
+    public IEnumerator PlayStartAnim(int charId)
     {
-		GameObject animObj = transform.Find("StartAnim").gameObject;
-		animObj.SetActive(true);
+        GameObject animObj = transform.Find("StartAnim").gameObject;
+        animObj.SetActive(true);
 
-		while(isPlayingStartAnim)
-			yield return null;
+        while (isPlayingStartAnim)
+            yield return null;
 
-		animObj.SetActive(false);
+        animObj.SetActive(false);
     }
 
     public void StartAnimPlay()

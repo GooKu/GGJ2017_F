@@ -14,6 +14,8 @@ public class MouseDrag : MonoBehaviour {
     public bool isDragingWithForce;
 
 	public event System.EventHandler Fired;
+    public event System.EventHandler Firing;
+    public event System.EventHandler FiringCancel;
 
     private Rigidbody2D rb;
 
@@ -39,6 +41,10 @@ public class MouseDrag : MonoBehaviour {
 				arrow.transform.localScale = Vector3.zero;
 				arrow.SetActive (true);
 			}
+            if(this.Firing != null)
+            {
+                this.Firing(this, System.EventArgs.Empty);
+            }
             //Debug.Log(initialPosition);
         }
     }
@@ -68,25 +74,37 @@ public class MouseDrag : MonoBehaviour {
     {
 		if (this.enabled)
         {
-            if (!isDragingWithForce)
+            if (direction.magnitude > 10)
             {
-                direction = direction.normalized;
-                rb.velocity = -direction * speed * 1000 * Time.deltaTime;
+                if (!isDragingWithForce)
+                {
+                    direction = direction.normalized;
+                    rb.velocity = -direction * speed * 1000 * Time.deltaTime;
+                }
+                else
+                {
+                    rb.velocity = -direction * speed * 4000 * Time.deltaTime;
+                }
+                rb.isKinematic = false;
+
+                if (arrow != null)
+                {
+                    Destroy(arrow);
+
+                }
+
+                if (this.Fired != null)
+                {
+                    this.Fired(this, System.EventArgs.Empty);
+                }
             }
             else
             {
-                rb.velocity = -direction * speed * 4000 * Time.deltaTime;
+                if (this.FiringCancel != null)
+                {
+                    this.FiringCancel(this, System.EventArgs.Empty);
+                }
             }
-            rb.isKinematic = false;
-
-			if (arrow != null) {
-				Destroy(arrow);
-
-			}
-
-			if (this.Fired != null) {
-				this.Fired (this, System.EventArgs.Empty);
-			}
         }
     }
 }
