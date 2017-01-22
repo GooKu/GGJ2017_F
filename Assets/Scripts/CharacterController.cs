@@ -164,4 +164,16 @@ public class CharacterController : MonoBehaviour
 
           Current.localScale = Vector3.zero;
     }
+
+    public void RecoverCurrent()
+    {
+        if (Current == null)
+            return;
+
+        Current.localPosition = Vector3.zero;
+        Current.localScale = Vector3.one;
+        Current.gameObject.SetActive(false);
+        UnLockCharacterInfoList = new List<CharacterInfo>();
+        transform.Find("StartAnim").gameObject.SetActive(false);
+    }
 }
