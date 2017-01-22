@@ -156,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1608249819073456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -520, y: 250, z: 0}
+  m_LocalPosition: {x: -490, y: 230, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4714323330862712}
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   image: {fileID: 212134878100902500}
-  introduction: bbb
+  introduction: Ice
 --- !u!114 &114162133283186562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   image: {fileID: 212452864623329514}
-  introduction: aaa
+  introduction: Normal
 --- !u!114 &114966823676849220
 MonoBehaviour:
   m_ObjectHideFlags: 1

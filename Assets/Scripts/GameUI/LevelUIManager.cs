@@ -12,7 +12,12 @@ public class LevelUIManager : MonoBehaviour
 	[SerializeField]
 	CharacterSelector characterSelector = null;
 
-	public CharacterSelector CharacterSelector{
+    [SerializeField]
+    private Button returnBtn;
+
+    public event System.EventHandler Return;
+
+    public CharacterSelector CharacterSelector{
 		get{
 			return this.characterSelector;
 		}
@@ -23,6 +28,7 @@ public class LevelUIManager : MonoBehaviour
     {
 		this.characterSelector = this.transform.GetComponentInChildren<CharacterSelector>();
         this.countDownText = this.transform.GetComponentInChildren<Text>();
+        this.returnBtn = this.transform.GetComponentInChildren<Button>();
     }
 
 	void Awake()
@@ -37,5 +43,15 @@ public class LevelUIManager : MonoBehaviour
 		} else {
 			countDownText.text = string.Format ("{0:N2}", time);
 		}
+    }
+
+    public void ShowReturnBtn(bool isShow)
+    {
+        this.returnBtn.gameObject.SetActive(isShow);
+    }
+
+    public void OnReturnClick()
+    {
+        this.Return(this, System.EventArgs.Empty);
     }
 }
