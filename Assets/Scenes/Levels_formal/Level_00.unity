@@ -858,8 +858,8 @@ Transform:
   - {fileID: 316723087}
   - {fileID: 207103021}
   - {fileID: 1435071325}
-  - {fileID: 147341436}
   - {fileID: 1933790861}
+  - {fileID: 147341436}
   m_Father: {fileID: 1335531553}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1205,7 +1205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c40f49cd3f5f40508b35b6d0ddda991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLimit: 15
+  timeLimit: 0
   characterController: {fileID: 1909880080}
   cameraController: {fileID: 1137580727}
   cameraRegion: {fileID: 1335531554}
@@ -1557,7 +1557,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4426911786628770, guid: d725fa94f53c44d72970af057fed4a0b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -13
+      value: 230
       objectReference: {fileID: 0}
     - target: {fileID: 4426911786628770, guid: d725fa94f53c44d72970af057fed4a0b, type: 2}
       propertyPath: m_LocalPosition.z
