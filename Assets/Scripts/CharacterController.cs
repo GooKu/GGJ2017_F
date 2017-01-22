@@ -25,6 +25,15 @@ public class CharacterController : MonoBehaviour
         private set;
     }
 
+	public TrailController CurrentTrail{
+		get{
+			if (this.Current != null) {
+				return this.Current.GetComponentInChildren<TrailController> ();
+			}
+			return null;
+		}
+	}
+
     public List<CharacterInfo> UnLockCharacterInfoList
     {
         get;

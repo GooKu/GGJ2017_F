@@ -45,6 +45,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void FirstLevel(){
+		GameDataManager.Instance.Reset ();
 		this.StartCoroutine (this.ToLevel(0, false));
 	}
 
@@ -131,9 +132,7 @@ public class LevelManager : MonoBehaviour {
 			this.NextLevel ();
 		} else if (Input.GetKeyUp (KeyCode.P)) {
 			this.PreviousLevel ();
-		} else if (Input.GetKeyUp (KeyCode.R)) {
-			this.ResetLevel ();
-		}
+		} 
 
 		if (Input.GetKeyUp (KeyCode.T)) {
 			var v = (int)TimeLordConfig.Debug + 1;

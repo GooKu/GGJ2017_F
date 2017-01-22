@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -123,6 +124,7 @@ public class LevelController : MonoBehaviour {
 		// 發射初始化
 		var died = false;
 		var passed = false;
+		var giveup = false;
 
 		this.characterController.Died += (sender, e) => {died = true;};
 		this.door.Passed += (sender, e) => {passed = true;};
@@ -137,15 +139,22 @@ public class LevelController : MonoBehaviour {
 		while (!passed) {
 			yield return null;
 
-			if ((Time.time >= endTime && !infinity) || died) {
+			if ((Time.time >= endTime && !infinity) || died || giveup) {
 				// 時間限制到，演出失敗動畫 & 重置場景
 
 				if (this.showDie) {
 					yield return this.StartCoroutine (this.characterController.FailHandle ());
 				}
 
+				// Reset level
+				this.KeepTrail ();
 				this.ResetLevel ();
 				yield break;
+			}
+
+			if (Input.GetKeyUp (KeyCode.R)) {
+				giveup = true;
+				this.showDie = false;
 			}
 
 			this.levelUIManager.SetCountDown(endTime - Time.time, infinity);
@@ -177,6 +186,24 @@ public class LevelController : MonoBehaviour {
 		else
 		{
 			Debug.Log("必須從 Main 開始執行才能下一關");
+		}
+	}
+
+	void KeepTrail(){
+
+		var history = GameDataManager.Instance.HistoryTrails;
+			
+		// Only keep one trail
+		foreach (var go in history.Where(v => v != null)) {
+			GameObject.Destroy (go.gameObject);
+		}
+
+		var trail = this.characterController.CurrentTrail;
+		if (trail != null) {
+			var go = trail.gameObject;
+			go.transform.SetParent (null);
+			GameObject.DontDestroyOnLoad (go);
+			history.Add (trail);
 		}
 	}
 }
