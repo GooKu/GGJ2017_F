@@ -4,35 +4,6 @@ using UnityEngine;
 
 public class BoundcinessController : MonoBehaviour
 {
-    public event System.EventHandler OutOfBounds = null;
-
-    private Bounds boundary;
-
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (boundary == null)
-        {
-            Debug.Log("今天的我, 沒有極限^.<");
-        }
-        else
-        {
-            if (transform.position.x > boundary.max.x ||
-                transform.position.x < boundary.min.x ||
-                transform.position.y > boundary.max.y ||
-                transform.position.y < boundary.min.y)
-            {
-                if (OutOfBounds != null)
-                    OutOfBounds(this, System.EventArgs.Empty);
-                OutOfBounds = null;
-            }
-        }
-    }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
@@ -73,11 +44,5 @@ public class BoundcinessController : MonoBehaviour
     void OnDestroy()
     {
         gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 1.0f;
-
-    }
-
-    public void SetBoundary(BoxCollider2D boundaryBoxCoilder)
-    {
-        boundary = boundaryBoxCoilder.bounds;
     }
 }

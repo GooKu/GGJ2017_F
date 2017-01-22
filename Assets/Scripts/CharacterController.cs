@@ -119,10 +119,9 @@ public class CharacterController : MonoBehaviour
         GameObject character = UnLockCharacterInfoList.Find(x => x.Id == id).gameObject;
         character.SetActive(true);
         character.GetComponent<MouseDrag>().enabled = true;
-        character.GetComponent<BoundcinessController>().SetBoundary(boundary);
-
-        // TODO:
-        // character.GetComponent<BoundcinessController>().OutOfBounds += outOfBounds;
+        CharacterChecker checker = character.GetComponent<CharacterChecker>();
+        checker.SetBoundary(boundary);
+        checker.OutOfBounds += this.Died;
     }
 
     public IEnumerator PlayStartAnim(int charId)
