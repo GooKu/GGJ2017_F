@@ -13,8 +13,6 @@ public class CameraController : MonoBehaviour {
     [SerializeField]
     private Transform traget;
     [SerializeField]
-    private BoxCollider2D boundaryBoxCoilder;
-    [SerializeField]
     private Mode currentMode;
     private float tragetZ = -250;
     private Vector3 tragetPostion;
@@ -25,16 +23,7 @@ public class CameraController : MonoBehaviour {
     private Bounds boundary;
 
     private float camerOffsetX = 300;
-    private float cameraSpeed = 2;
-
-    private void Awake()
-    {
-        if (boundaryBoxCoilder != null)
-        {
-            updateBoundary(boundaryBoxCoilder);
-            screenRate = (float)Screen.width / Screen.height;
-        }
-    }
+    private float cameraSpeed = 3;
 
     public void Init(Transform traget, BoxCollider2D boundaryBoxCoilder)
     {
@@ -59,8 +48,8 @@ public class CameraController : MonoBehaviour {
         boundary = new Bounds(boundaryBoxCoilder.bounds.center, 
         new Vector3(boundaryBoxCoilder.size.x - (orthographicSize * Screen.width / Screen.height), boundaryBoxCoilder.size.y - orthographicSize, 0));
     }
-	
-	void Update ()
+
+    void Update ()
     {
         switch (currentMode)
         {
@@ -79,7 +68,7 @@ public class CameraController : MonoBehaviour {
                 if (Input.GetMouseButton(0))
                 {
                     currentPos = Input.mousePosition;
-                    tragetPostion = new Vector3((deltaPos.x / Screen.width)* screenRate, deltaPos.y / Screen.height, 0) * Camera.main.orthographicSize * 16;
+                    tragetPostion = new Vector3((deltaPos.x / Screen.width)* screenRate, deltaPos.y / Screen.height, 0) * Camera.main.orthographicSize * cameraSpeed * 16;
                     tragetPostion = transform.position - tragetPostion;
                     lastPos = currentPos;
                 }
