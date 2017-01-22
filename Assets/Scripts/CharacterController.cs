@@ -144,4 +144,18 @@ public class CharacterController : MonoBehaviour
     {
         isPlayingStartAnim = false;
     }
+
+    public IEnumerator PlayEndAnim(Transform doorTrans)
+    {
+        float ft = 0.0f;
+        float fV = 0.0f;
+
+        do
+        {
+            ft = Mathf.SmoothDamp(ft, 1.0f, ref fV, 1.5f);
+            Current.position = Vector3.Lerp(Current.position, doorTrans.position, ft);
+            Current.localScale = Vector3.Lerp(Current.localScale, new Vector3(.1f, .1f, .1f), ft);
+            yield return null;
+        } while (ft < 0.98f);
+    }
 }
