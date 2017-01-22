@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BounceWaveCtrl : MonoBehaviour {
 
+    private Animator[] animator;
     private Vector2 ball_pos;
     private Vector2 fan_pos;
     private Vector2 Force;
+    private int animState;
     public int active;
     private Rigidbody2D rb;
     private Collider2D Coll;
@@ -14,12 +16,19 @@ public class BounceWaveCtrl : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        animator = GetComponentsInChildren<Animator>();
+        animState = Animator.StringToHash("BounceWave.End"); 
     }
 
     // Update is called once per frame
     void Update()
     {
+        foreach(Animator anim in animator)
+        {
+            if (anim.GetCurrentAnimatorStateInfo(0).nameHash == animState)
+                anim.SetBool("isWave", false);
 
+        }
     }
 
     void OnTriggerEnter2D(Collider2D c)
@@ -46,7 +55,15 @@ public class BounceWaveCtrl : MonoBehaviour {
             //print(rb.velocity);
             rb.velocity = Force;
             //print(rb.velocity);
-        }
 
+            foreach(Animator anim in animator)
+            {
+                anim.SetBool("isWave", true);
+            }
+        }
+        foreach (Animator anim in animator)
+        {
+            anim.SetBool("isWave", true);
+        }
     }
 }
