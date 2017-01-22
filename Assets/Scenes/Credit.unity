@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 45192874}
   - component: {fileID: 45192875}
   - component: {fileID: 45192876}
+  - component: {fileID: 45192877}
+  - component: {fileID: 45192878}
   m_Layer: 0
   m_Name: thankspage03
   m_TagString: Untagged
@@ -206,6 +208,74 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!60 &45192877
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45192873}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: -35.5, y: -71}
+      - {x: -57.358887, y: -88.294846}
+      - {x: -44.5, y: -91}
+      - {x: -33.5, y: -100}
+      - {x: -27.5, y: -100}
+      - {x: 7.7049866, y: -98.320465}
+      - {x: -16.5, y: -74}
+      - {x: -23.5, y: -71}
+    - - {x: 47.064026, y: -105.61531}
+      - {x: 46.5, y: -98}
+      - {x: 63.08972, y: -89.679535}
+      - {x: 59.5, y: -93}
+      - {x: 59.5, y: -84}
+      - {x: 58.5, y: -79}
+      - {x: 87.29468, y: -64.384705}
+      - {x: 97.29648, y: -31.846458}
+      - {x: 70.81137, y: -21.353989}
+      - {x: 79.75537, y: 14.148384}
+      - {x: 77.87692, y: 50.47145}
+      - {x: 67.53696, y: 84.324135}
+      - {x: 55.224854, y: 104.306}
+      - {x: 18.538605, y: 118.66556}
+      - {x: -43.22632, y: 102.71994}
+      - {x: -77.908875, y: 70.97537}
+      - {x: -76.19818, y: -20.585052}
+      - {x: -94.40216, y: -33.422302}
+      - {x: -85.72836, y: -84.83374}
+      - {x: 46.587708, y: -104.38574}
+      - {x: 39.5, y: -83}
+    - - {x: -0.5, y: -78}
+      - {x: -2.5, y: -81}
+      - {x: -2.5, y: -90}
+      - {x: 5.5, y: -90}
+      - {x: 5.5, y: -80}
+      - {x: 2.5, y: -78}
+    - - {x: -84.5, y: -72}
+      - {x: -81.5, y: -75}
+      - {x: -78.5, y: -74}
+      - {x: -78.5, y: -69}
+      - {x: -90.08969, y: -83.64093}
+      - {x: -81.5, y: -67}
+      - {x: -84.5, y: -68}
+--- !u!114 &45192878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45192873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 356f70c0cd8104fd7be41dbe2dc58439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 45192876}
 --- !u!1 &224726230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,6 +1680,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2097829020}
   - component: {fileID: 2097829021}
+  - component: {fileID: 2097829022}
+  - component: {fileID: 2097829023}
+  - component: {fileID: 2097829024}
   m_Layer: 0
   m_Name: thankspage05
   m_TagString: Untagged
@@ -1665,3 +1738,95 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!95 &2097829022
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2097829019}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f90e0fc6c05204e2a9fc2ba9277aee9c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!60 &2097829023
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2097829019}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: -39.647736, y: 147.68658}
+      - {x: -65.7746, y: 116.520996}
+      - {x: -69.090485, y: 68.331894}
+      - {x: -51.482605, y: 35.443523}
+      - {x: -27.203217, y: 21.26086}
+      - {x: -41.79837, y: -64.243576}
+      - {x: -92.77173, y: -75.05153}
+      - {x: -87.90723, y: -123.30237}
+      - {x: -53.153748, y: -136.41014}
+      - {x: -49.615295, y: -134.38452}
+      - {x: -45, y: -131.5}
+      - {x: -45, y: -141.5}
+      - {x: -35, y: -146.5}
+      - {x: -24, y: -146.5}
+      - {x: 1.1537476, y: -141.03845}
+      - {x: 45.02533, y: -144.19217}
+      - {x: 39.07617, y: -59.166447}
+      - {x: 19.691101, y: 25.53087}
+      - {x: 50.640472, y: 43.20971}
+      - {x: 65.979095, y: 75.62634}
+      - {x: 51.53714, y: 125.040665}
+      - {x: 41.090546, y: 149.34285}
+      - {x: -1.0386047, y: 161.6138}
+    - - {x: 92.82556, y: -106.62215}
+      - {x: 88.44714, y: -76.79498}
+      - {x: 38.974396, y: -58.69264}
+      - {x: 38, y: -127.5}
+      - {x: 38, y: -137.5}
+      - {x: 45, y: -144.5}
+      - {x: 51, y: -144.5}
+      - {x: 58, y: -142.5}
+      - {x: 59, y: -137.5}
+      - {x: 62.782043, y: -131.28204}
+      - {x: 71.88452, y: -124.5}
+    - - {x: 1, y: -123.5}
+      - {x: -3, y: -125.5}
+      - {x: -3, y: -133.5}
+      - {x: -2, y: -136.5}
+      - {x: 3, y: -136.5}
+      - {x: 5, y: -134.5}
+      - {x: 5, y: -126.5}
+      - {x: 2, y: -123.5}
+    - - {x: -85, y: -119.5}
+      - {x: -82, y: -122.5}
+      - {x: -79, y: -121.5}
+      - {x: -79, y: -117.5}
+      - {x: -82, y: -114.5}
+      - {x: -85, y: -115.5}
+--- !u!114 &2097829024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2097829019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b982e80442bca4230b383316d7ca828d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2097829022}
+  url: https://github.com/GooKu/GGJ2017_F
