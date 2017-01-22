@@ -22,6 +22,8 @@ public class CharacterController : MonoBehaviour
         private set;
     }
 
+    private bool isPlayingStartAnim;
+
     void Awake()
     {
         // TODO: 僅註冊有使用到的物件
@@ -41,6 +43,7 @@ public class CharacterController : MonoBehaviour
 
             md.GetComponent<MouseDrag>().Fired += this.OnFired;
         }
+        transform.Find("StartAnim").gameObject.SetActive(false);
     }
 
     void OnFired(object sender, System.EventArgs e)
@@ -80,5 +83,32 @@ public class CharacterController : MonoBehaviour
         character.GetComponent<MouseDrag>().enabled = true;
         character.GetComponent<BoundcinessController>().SetBoundary(boundary);
         character.GetComponent<BoundcinessController>().OutOfBounds += outOfBounds;
+    }
+
+    public void PlayStartAnim(System.Action callBack)
+    {
+        StartCoroutine(playStartAnim(callBack));
+    }
+
+    private IEnumerator playStartAnim(System.Action callBack)
+    {
+        GameObject animObj = transform.Find("StartAnim").gameObject;
+        animObj.SetActive(true);
+
+        while(isPlayingStartAnim)
+            yield return null;
+
+        animObj.SetActive(false);
+        callBack();
+    }
+
+    public void StartAnimPlay()
+    {
+        isPlayingStartAnim = true;
+    }
+
+    public void StartAnimFinish()
+    {
+        isPlayingStartAnim = false;
     }
 }
