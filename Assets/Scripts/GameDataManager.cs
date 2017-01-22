@@ -22,10 +22,7 @@ public class GameDataManager
 
 	public void Reset(){
 		if (instance != null) {
-			var history = this.historyTrails;
-			foreach (var go in history.Where(v => v != null)) {
-				GameObject.Destroy (go.gameObject);
-			}
+			instance.ClearTrails ();
 		}
 
 		instance = new GameDataManager ();
@@ -35,6 +32,12 @@ public class GameDataManager
     {
 		return chracterUnlockIndex;
     }
+
+	public void ClearTrails(){
+		foreach (var go in this.HistoryTrails.Where(v => v != null)) {
+			GameObject.Destroy (go.gameObject);
+		}
+	}
 
 	public List<TrailController> HistoryTrails{
 		get{

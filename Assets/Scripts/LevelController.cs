@@ -131,6 +131,7 @@ public class LevelController : MonoBehaviour {
 
 		this.cameraController.UpdateMode (CameraController.Mode.FollowTrager);
 		this.cameraController.UpdateTarget (this.characterController.Current);
+		this.ClearTrails ();
 
 		this.IsRunnig = true;
 
@@ -187,6 +188,10 @@ public class LevelController : MonoBehaviour {
 		{
 			Debug.Log("必須從 Main 開始執行才能下一關");
 		}
+	}
+
+	void ClearTrails(){
+		GameDataManager.Instance.ClearTrails ();
 	}
 
 	void KeepTrail(){
