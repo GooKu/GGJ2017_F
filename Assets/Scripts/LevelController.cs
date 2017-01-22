@@ -183,7 +183,7 @@ public class LevelController : MonoBehaviour {
 				yield break;
 			}
 
-			if (Input.GetKeyUp (KeyCode.R)) {
+			if (Input.GetKeyUp (KeyCode.R) || Input.GetKeyUp(KeyCode.Escape)) {
 				giveup = true;
 				this.showDie = false;
 			} else if (Input.GetKeyUp (KeyCode.E)) {
@@ -197,7 +197,6 @@ public class LevelController : MonoBehaviour {
 		yield return this.characterController.PlayEndAnim(this.door.transform);
 
 		// 處理結束
-		this.ClearTrails ();
 		this.NextLevel();
 	}
 

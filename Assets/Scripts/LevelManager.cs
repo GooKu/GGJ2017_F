@@ -71,11 +71,14 @@ public class LevelManager : MonoBehaviour {
 
 		this.loading = true;
 
-		if (this.fadeEffect != null && useFade) {
+        // Clear
+        GameDataManager.Instance.ClearTrails();
+
+        // Fade..
+        if (this.fadeEffect != null && useFade) {
 			yield return this.fadeEffect.FadeOut ();
 		}
 
-		// TODO: FADE IN FADE OUT
 		if (this.lastScene != null){
 			var u = this.lastScene.Value;
 			if (u.isLoaded && u.IsValid()) {
