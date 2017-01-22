@@ -17,7 +17,7 @@ public class Ground03Ctrl : MonoBehaviour {
 
     }
 
-    void OnTriggerExit2D(Collision2D Coll)
+    void OnTriggerEnter2D(Collider2D Coll)
     {
         gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.1f);
 

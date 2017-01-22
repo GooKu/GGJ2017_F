@@ -7,9 +7,7 @@ public class AnimGround02 : MonoBehaviour {
     private Animator animator;
     // Use this for initialization
     void Start () {
-        animator = GetComponent<Animator>();
-        animator.GetBool("isJump");
-
+        animator = transform.parent.GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -18,11 +16,9 @@ public class AnimGround02 : MonoBehaviour {
 	}
     void OnMouseDown()
     {
-        print("OnMouseDown");
-        move = animator.GetBool("isJump");
+        move = !animator.GetBool("isJump");
+        animator.SetBool("isJump", move);
         print(move);
-        if (move == false) animator.SetBool("isJump",true);
-        else if (move == true) animator.SetBool("isJump", false);
     }
 
 }

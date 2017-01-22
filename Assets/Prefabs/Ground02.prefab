@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4485270648659874}
   - component: {fileID: 212395131210855156}
   - component: {fileID: 61526599117293980}
+  - component: {fileID: 114033102573296082}
   m_Layer: 0
   m_Name: Ground02
   m_TagString: Ground02
@@ -37,7 +38,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4189089677398362}
   - component: {fileID: 95632015553080914}
-  - component: {fileID: 114131669636498738}
   m_Layer: 0
   m_Name: Ground02
   m_TagString: Untagged
@@ -229,12 +229,12 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114131669636498738
+--- !u!114 &114033102573296082
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914334275841754}
+  m_GameObject: {fileID: 1006982968487098}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 483389845ca8f564a87223ce39cb449c, type: 3}
