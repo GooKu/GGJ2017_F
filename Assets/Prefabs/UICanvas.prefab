@@ -106,8 +106,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4423033657648014}
   - component: {fileID: 20770270706235054}
-  - component: {fileID: 124411185271777716}
-  - component: {fileID: 92075231386489504}
   m_Layer: 5
   m_Name: UICamera
   m_TagString: Untagged
@@ -340,13 +338,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!92 &92075231386489504
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276091441174418}
-  m_Enabled: 1
 --- !u!114 &114166937665272492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -763,13 +754,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!124 &124411185271777716
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276091441174418}
-  m_Enabled: 1
 --- !u!212 &212422004792286856
 SpriteRenderer:
   m_ObjectHideFlags: 1
