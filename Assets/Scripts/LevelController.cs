@@ -83,11 +83,13 @@ public class LevelController : MonoBehaviour {
 
 		// 播放開始動畫
 		yield return this.StartCoroutine(this.characterController.PlayStartAnim(charId));
+        var died = false;
 
-		// 瀏覽模式
-		this.cameraRegion.enabled = true;//gooku: tmp enable for get correct  bounds;
+        // 瀏覽模式
+        this.cameraRegion.enabled = true;//gooku: tmp enable for get correct  bounds;
 		{
-			this.levelUIManager.SetCountDown (this.timeLimit, infinity);
+            this.characterController.Died += (sender, e) => { died = true; };
+            this.levelUIManager.SetCountDown (this.timeLimit, infinity);
 			this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
 			this.characterController.EnableCharacter (charId, this.cameraRegion);
 		}
@@ -122,11 +124,9 @@ public class LevelController : MonoBehaviour {
 		}
 			
 		// 發射初始化
-		var died = false;
 		var passed = false;
 		var giveup = false;
 
-		this.characterController.Died += (sender, e) => {died = true;};
 		this.door.Passed += (sender, e) => {passed = true;};
 
 		this.cameraController.UpdateMode (CameraController.Mode.FollowTrager);
