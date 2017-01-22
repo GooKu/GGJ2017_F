@@ -511,7 +511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   image: {fileID: 212134878100902500}
-  introduction: bbb
+  introduction: Ice
 --- !u!114 &114162133283186562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   image: {fileID: 212452864623329514}
-  introduction: aaa
+  introduction: Normal
 --- !u!114 &114966823676849220
 MonoBehaviour:
   m_ObjectHideFlags: 1
