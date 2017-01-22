@@ -162,6 +162,7 @@ public class LevelController : MonoBehaviour {
 		}
 
 		// 過關演出處理
+		yield return this.characterController.PlayEndAnim(this.door.transform);
 
 		// 處理結束
 		this.ClearTrails ();
