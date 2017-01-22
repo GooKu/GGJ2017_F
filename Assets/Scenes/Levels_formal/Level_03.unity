@@ -1876,13 +1876,13 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!114 &801669925 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114509295267151366, guid: e997777b00be4624892ef6562cc54ba0,
+  m_PrefabParentObject: {fileID: 114222478514081542, guid: e997777b00be4624892ef6562cc54ba0,
     type: 2}
   m_PrefabInternal: {fileID: 801669924}
   m_Script: {fileID: 11500000, guid: 1401d977a82ec6a4bb2cecd9536348f5, type: 3}
---- !u!224 &801669926 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224456762000212764, guid: e997777b00be4624892ef6562cc54ba0,
+--- !u!4 &801669926 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4310243898768036, guid: e997777b00be4624892ef6562cc54ba0,
     type: 2}
   m_PrefabInternal: {fileID: 801669924}
 --- !u!1001 &805475934
@@ -2556,7 +2556,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   traget: {fileID: 205883050}
-  boundaryBoxCoilder: {fileID: 1335531554}
   currentMode: 1
 --- !u!1001 &1142561750
 Prefab:
@@ -2853,12 +2852,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c40f49cd3f5f40508b35b6d0ddda991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeLimit: 30
   characterController: {fileID: 2099846212}
   cameraController: {fileID: 1137580727}
   cameraRegion: {fileID: 1335531554}
   levelUIManager: {fileID: 801669925}
   door: {fileID: 122583213}
-  timeLimit: 30
 --- !u!1001 &1336245300
 Prefab:
   m_ObjectHideFlags: 0
