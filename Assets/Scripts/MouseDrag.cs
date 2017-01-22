@@ -34,7 +34,7 @@ public class MouseDrag : MonoBehaviour {
             arrow = Instantiate(arrowPrefab);
             arrow.SetActive(false);
             initialPosition = new Vector2(Input.mousePosition.x / Camera.main.pixelWidth, Input.mousePosition.y / Camera.main.pixelHeight);
-            initialWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            initialWorldPosition = transform.position;
             initialWorldPosition.z = 0;
 
 			if (arrow != null) {
