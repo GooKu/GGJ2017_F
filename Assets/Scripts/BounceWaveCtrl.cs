@@ -61,9 +61,5 @@ public class BounceWaveCtrl : MonoBehaviour {
                 anim.SetBool("isWave", true);
             }
         }
-        foreach (Animator anim in animator)
-        {
-            anim.SetBool("isWave", true);
-        }
     }
 }

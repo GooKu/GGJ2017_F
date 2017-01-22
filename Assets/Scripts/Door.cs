@@ -9,12 +9,14 @@ public class Door : MonoBehaviour {
     AudioClip myAuioClip;
 
     void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.tag == "Player") {
-            if (this.Passed != null)
-            {
-                this.GetComponent<AudioSource>().PlayOneShot(this.myAuioClip, 0.1f);
-                this.Passed(this, System.EventArgs.Empty);
-            }
+		if (this.enabled) {
+			if (other.gameObject.tag == "Player") {
+				if (this.Passed != null) {
+					this.GetComponent<AudioSource> ().PlayOneShot (this.myAuioClip, 0.1f);
+					this.Passed (this, System.EventArgs.Empty);
+					this.enabled = false;
+				}
+			}
 		}
 	}
 }
