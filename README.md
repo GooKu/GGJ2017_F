@@ -13,7 +13,7 @@ This project was built on Unity 5.5.0f3.
 
 ## Demo
 
-Online WebGL demo, [click here](https://github.com/GooKu/GGJ2017_F)
+Online WebGL demo, [click here](https://gooku.github.io/GGJ2017_F/)
 
 ![Screenshot 001](./Images/screenshot001.jpg)
 ![Screenshot 002](./Images/screenshot002.jpg)
