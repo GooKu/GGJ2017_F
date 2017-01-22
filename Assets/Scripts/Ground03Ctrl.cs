@@ -7,7 +7,6 @@ public class Ground03Ctrl : MonoBehaviour {
     public AudioClip myAuioClip;
 
     private Rigidbody2D rb;
-    private Collider2D c;
     // Use this for initialization
     void Start() {
 
@@ -17,11 +16,8 @@ public class Ground03Ctrl : MonoBehaviour {
     void Update() {
 
     }
-    void OnCollisionEnter2D(Collision2D Coll)
-    {
-        //gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 0.5f;
-    }
-    void OnCollisionExit2D(Collision2D Coll)
+
+    void OnTriggerExit2D(Collision2D Coll)
     {
         gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.1f);
 
