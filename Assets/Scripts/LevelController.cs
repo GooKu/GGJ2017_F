@@ -148,7 +148,7 @@ public class LevelController : MonoBehaviour {
 				yield break;
 			}
 
-			this.levelUIManager.SetCountDown(this.timeLimit, infinity);
+			this.levelUIManager.SetCountDown(endTime - Time.time, infinity);
 		}
 
 		// 過關演出處理
