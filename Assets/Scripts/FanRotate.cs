@@ -8,7 +8,6 @@ public class FanRotate : MonoBehaviour {
     public AudioClip myAuioClip;
 
     private int speed = 0;
-    private float t = 0;
     // Use this for initialization
     void Start () {
         

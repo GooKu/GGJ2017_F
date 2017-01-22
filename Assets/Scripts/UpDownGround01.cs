@@ -17,11 +17,6 @@ public class UpDownGround01 : MonoBehaviour {
 	void Update () {
         if (move == 1)
         {
-            //if(t > 1)
-            //{
-            //    dir *= -1;
-            //    t = 0;
-            //}
             hight = transform.position.y;
             if (hight > 150 || hight < -150) { dir *= -1; }
             transform.Translate(new Vector2(0, 1 * dir * speed * Time.deltaTime));
