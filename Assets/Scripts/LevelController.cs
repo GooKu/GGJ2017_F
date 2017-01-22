@@ -156,6 +156,8 @@ public class LevelController : MonoBehaviour {
 			if (Input.GetKeyUp (KeyCode.R)) {
 				giveup = true;
 				this.showDie = false;
+			} else if (Input.GetKeyUp (KeyCode.E)) {
+				passed = true;
 			}
 
 			this.levelUIManager.SetCountDown(endTime - Time.time, infinity);
