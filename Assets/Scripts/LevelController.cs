@@ -45,10 +45,6 @@ public class LevelController : MonoBehaviour {
     [SerializeField]
     private Door door;
 
-
-	private bool passed = false;
-	private bool fired = false;
-	private bool died = false;
 	private bool showDie = true;
 
     void Reset(){
@@ -73,9 +69,6 @@ public class LevelController : MonoBehaviour {
 		this.cameraController.Init (this.characterController.transform, this.cameraRegion);
 
 		this.cameraRegion.enabled = false;
-		this.characterController.Fired += this.OnFired;
-		this.characterController.Died += this.OnDied;
-		this.door.Passed += this.OnPassed;
 
 		// 開啟選單
 		var charList = this.characterController.UnLockCharacterInfoList;
@@ -99,12 +92,41 @@ public class LevelController : MonoBehaviour {
 		}
 		this.cameraRegion.enabled = false;
 
-		// 等發射
-		while (!this.fired) {
-			yield return null;
-		}
+		// 發射流程
+		{
+			var firing = false;
+			var fired = false;
+			var firingCancel = false;
 
+			this.characterController.FiringCancel += (sender, e) => {firingCancel = true;};
+			this.characterController.Firing += (sender, e) => {firing = true;};
+			this.characterController.Firing += (sender, e) => {fired = true;};
+
+			// 等待發射
+			while (!fired) {
+				yield return null;
+
+				// 準備發射
+				if (firing) {
+					this.cameraController.UpdateMode (CameraController.Mode.Stop);
+				}
+
+				// 取消?
+				if (firingCancel) {
+					firing = false;
+					firingCancel = false;
+					this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
+				}
+			}
+		}
+			
 		// 發射初始化
+		var died = false;
+		var passed = false;
+
+		this.characterController.Died += (sender, e) => {died = true;};
+		this.door.Passed += (sender, e) => {passed = true;};
+
 		this.cameraController.UpdateMode (CameraController.Mode.FollowTrager);
 		this.cameraController.UpdateTarget (this.characterController.Current);
 
@@ -112,25 +134,17 @@ public class LevelController : MonoBehaviour {
 
 		// 等遊戲結束
 		var endTime = Time.time + this.timeLimit;
-		while (!this.passed) {
+		while (!passed) {
 			yield return null;
 
-			if ((Time.time >= endTime && !infinity) || this.died) {
-				// 時間限制到，演出失敗動畫
+			if ((Time.time >= endTime && !infinity) || died) {
+				// 時間限制到，演出失敗動畫 & 重置場景
 
 				if (this.showDie) {
 					yield return this.StartCoroutine (this.characterController.FailHandle ());
 				}
 
-				if (LevelManager.Singleton != null)
-				{
-					LevelManager.Singleton.ResetLevel();
-				}
-				else
-				{
-					Debug.Log("必須從 Main 開始執行才能下一關");
-				}
-
+				this.ResetLevel ();
 				yield break;
 			}
 
@@ -140,6 +154,22 @@ public class LevelController : MonoBehaviour {
 		// 過關演出處理
 
 		// 處理結束
+		this.NextLevel();
+	}
+
+	void ResetLevel()
+	{
+		if (LevelManager.Singleton != null)
+		{
+			LevelManager.Singleton.ResetLevel();
+		}
+		else
+		{
+			Debug.Log("必須從 Main 開始執行才能下一關");
+		}
+	}
+
+	void NextLevel(){
 		if (LevelManager.Singleton != null)
 		{
 			LevelManager.Singleton.NextLevel();
@@ -148,22 +178,6 @@ public class LevelController : MonoBehaviour {
 		{
 			Debug.Log("必須從 Main 開始執行才能下一關");
 		}
-
-	}
-    
-    void OnFired (object sender, System.EventArgs e)
-	{
-		this.fired = true;
-	}
-
-    void OnDied(object sender, System.EventArgs e)
-    {
-		this.died = true;
-    }
-
-	void OnPassed (object sender, System.EventArgs e)
-	{
-		this.passed = true;
 	}
 }
 
