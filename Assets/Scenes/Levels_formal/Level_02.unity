@@ -2338,7 +2338,7 @@ MonoBehaviour:
   cameraRegion: {fileID: 1335531554}
   levelUIManager: {fileID: 801669925}
   door: {fileID: 122583213}
-  timeLimit: 15
+  timeLimit: 25
 --- !u!1001 &1336245300
 Prefab:
   m_ObjectHideFlags: 0

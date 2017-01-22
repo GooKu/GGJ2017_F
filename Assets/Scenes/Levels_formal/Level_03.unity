@@ -1869,7 +1869,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1792959769789370, guid: e997777b00be4624892ef6562cc54ba0, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e997777b00be4624892ef6562cc54ba0, type: 2}
@@ -2858,7 +2858,7 @@ MonoBehaviour:
   cameraRegion: {fileID: 1335531554}
   levelUIManager: {fileID: 801669925}
   door: {fileID: 122583213}
-  timeLimit: 25
+  timeLimit: 30
 --- !u!1001 &1336245300
 Prefab:
   m_ObjectHideFlags: 0
