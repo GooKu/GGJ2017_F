@@ -100,7 +100,7 @@ public class LevelController : MonoBehaviour {
 
 			this.characterController.FiringCancel += (sender, e) => {firingCancel = true;};
 			this.characterController.Firing += (sender, e) => {firing = true;};
-			this.characterController.Firing += (sender, e) => {fired = true;};
+			this.characterController.Fired += (sender, e) => {fired = true;};
 
 			// 等待發射
 			while (!fired) {
