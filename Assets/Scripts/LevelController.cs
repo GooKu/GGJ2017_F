@@ -87,6 +87,7 @@ public class LevelController : MonoBehaviour {
 		this.levelUIManager.ShowReturnBtn(false);
 
 		// 開啟選單
+		this.characterController.RecoverCurrent();
 
 		var charList = this.characterController.UnLockCharacterInfoList;
 		var charSelector = this.levelUIManager.CharacterSelector;
@@ -110,7 +111,7 @@ public class LevelController : MonoBehaviour {
 		}
 		this.cameraRegion.enabled = false;
 
-		this.levelUIManager.ShowReturnBtn(true);
+		//this.levelUIManager.ShowReturnBtn(true);
 
 		// 發射流程
 		{
@@ -134,14 +135,18 @@ public class LevelController : MonoBehaviour {
 					this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
 				}
 
-				if (re) {
+				/*
+				 * 流程有 BUG
+				 * if (re) {
 					re = false;
 					goto SELECT_CHAR;
-				}
+				}*/
 			}
 		}
 			
 		// 發射初始化
+		this.levelUIManager.ShowReturnBtn(true);
+
 		var passed = false;
 		var giveup = false;
 
