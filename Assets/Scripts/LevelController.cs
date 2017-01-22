@@ -57,6 +57,8 @@ public class LevelController : MonoBehaviour {
     }
     private GameStep currentStep = GameStep.Non;
 
+    private int currentSelectId;
+
     void Reset(){
 		this.characterController = this.transform.GetComponentInChildren<CharacterController> ();
 		this.cameraController = this.transform.GetComponentInChildren<CameraController> ();
@@ -126,10 +128,16 @@ public class LevelController : MonoBehaviour {
     public void OnSelectCharacter(GameObject item)
     {
         countDownTime = timeLimit;
+        currentSelectId = item.GetComponent<CharacterSelectItemView>().SelectedId;
         this.levelUIManager.GameStart(countDownTime);
+        this.characterController.PlayStartAnim(startAnimFinishHandle);
+    }
+
+    private void startAnimFinishHandle()
+    {
         this.cameraController.UpdateMode(CameraController.Mode.PlayerControl);
         this.cameraRegion.enabled = true;//gooku: tmp enable for get correct  bounds;
-        this.characterController.EnableCharacter(item.GetComponent<CharacterSelectItemView>().SelectedId, this.cameraRegion, OutOfBoundss);
+        this.characterController.EnableCharacter(currentSelectId, this.cameraRegion, OutOfBoundss);
         this.cameraRegion.enabled = false;
     }
 
