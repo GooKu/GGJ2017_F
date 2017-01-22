@@ -6,7 +6,7 @@ public class AudioFadeInOut : MonoBehaviour {
     private AudioSource audio;
     private float time;
 
-    public float threshold;
+    public float threshold = 4;
 	// Use this for initialization
 	void Start () {
         audio = GetComponent<AudioSource>();
