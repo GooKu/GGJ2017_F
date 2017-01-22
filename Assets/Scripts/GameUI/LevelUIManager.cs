@@ -15,7 +15,7 @@ public class LevelUIManager : MonoBehaviour
     [SerializeField]
     private Button returnBtn;
 
-    public event System.EventHandler Return;
+    public event System.EventHandler ReturnButtonClicked;
 
     public CharacterSelector CharacterSelector{
 		get{
@@ -39,7 +39,7 @@ public class LevelUIManager : MonoBehaviour
 	public void SetCountDown(float time, bool infinity)
     {
 		if (infinity) {
-			countDownText.text = "Infinity";
+			countDownText.text = string.Empty;
 		} else {
 			countDownText.text = string.Format ("{0:N2}", time);
 		}
@@ -52,6 +52,6 @@ public class LevelUIManager : MonoBehaviour
 
     public void OnReturnClick()
     {
-        this.Return(this, System.EventArgs.Empty);
+        this.ReturnButtonClicked(this, System.EventArgs.Empty);
     }
 }

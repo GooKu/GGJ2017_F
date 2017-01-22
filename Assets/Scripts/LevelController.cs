@@ -65,13 +65,29 @@ public class LevelController : MonoBehaviour {
 	{
 		var infinity = this.timeLimit <= 0;
 
+		var died = false;
+		var re = false;
+
+		var firing = false;
+		var fired = false;
+		var firingCancel = false;
+
+		this.characterController.FiringCancel += (sender, e) => {firingCancel = true;};
+		this.characterController.Firing += (sender, e) => {firing = true;};
+		this.characterController.Fired += (sender, e) => {fired = true;};
+		this.characterController.Died += (sender, e) => { died = true; };
+
+		this.levelUIManager.ReturnButtonClicked += (sender, e) => { re = true; };
+
+		SELECT_CHAR:
 		// 初始化
 		this.cameraController.UpdateMode (CameraController.Mode.Stop);
 		this.cameraController.Init (this.characterController.transform, this.cameraRegion);
-
 		this.cameraRegion.enabled = false;
+		this.levelUIManager.ShowReturnBtn(false);
 
 		// 開啟選單
+
 		var charList = this.characterController.UnLockCharacterInfoList;
 		var charSelector = this.levelUIManager.CharacterSelector;
 		charSelector.BeginSelect(charList);
@@ -83,27 +99,24 @@ public class LevelController : MonoBehaviour {
 
 		// 播放開始動畫
 		yield return this.StartCoroutine(this.characterController.PlayStartAnim(charId));
-        var died = false;
+        
 
         // 瀏覽模式
         this.cameraRegion.enabled = true;//gooku: tmp enable for get correct  bounds;
 		{
-            this.characterController.Died += (sender, e) => { died = true; };
             this.levelUIManager.SetCountDown (this.timeLimit, infinity);
 			this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
 			this.characterController.EnableCharacter (charId, this.cameraRegion);
 		}
 		this.cameraRegion.enabled = false;
 
+		this.levelUIManager.ShowReturnBtn(true);
+
 		// 發射流程
 		{
-			var firing = false;
-			var fired = false;
-			var firingCancel = false;
-
-			this.characterController.FiringCancel += (sender, e) => {firingCancel = true;};
-			this.characterController.Firing += (sender, e) => {firing = true;};
-			this.characterController.Fired += (sender, e) => {fired = true;};
+			fired = false;
+			firing = false;
+			firingCancel = false;
 
 			// 等待發射
 			while (!fired) {
@@ -119,6 +132,11 @@ public class LevelController : MonoBehaviour {
 					firing = false;
 					firingCancel = false;
 					this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
+				}
+
+				if (re) {
+					re = false;
+					goto SELECT_CHAR;
 				}
 			}
 		}
@@ -140,8 +158,15 @@ public class LevelController : MonoBehaviour {
 		while (!passed) {
 			yield return null;
 
+			if (re) {
+				re = false;
+				giveup = true;
+				this.showDie = false;
+			}
+
 			if ((Time.time >= endTime && !infinity) || died || giveup) {
 				// 時間限制到，演出失敗動畫 & 重置場景
+				this.door.enabled = false;
 
 				if (this.showDie) {
 					yield return this.StartCoroutine (this.characterController.FailHandle ());
