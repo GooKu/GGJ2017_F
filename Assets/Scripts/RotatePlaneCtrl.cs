@@ -8,12 +8,30 @@ public class RotatePlaneCtrl : MonoBehaviour {
     private int dir = -1;
     private int Rotate = 1;
     private float r = 0;
+    
+    [SerializeField]
+    private RotationDir initDir;
 
     private string dataKey;
+
+    enum RotationDir
+    {
+        Clockwise = 0,
+        CounterClockwise,
+        Random,
+    }
 
     void Awake()
     {
         this.dataKey = this.transform.position.ToString() + this.name;
+
+        switch (this.initDir)
+        {
+            case RotationDir.Clockwise: this.dir = -1; break;
+            case RotationDir.CounterClockwise: this.dir = +1; break;
+            case RotationDir.Random: this.dir = Random.Range(0, 1) * 2 - 1; break;
+        }
+
         this.LoadGameData();
     }
 

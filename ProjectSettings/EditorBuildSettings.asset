@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-  - enabled: 0
-    path: Assets/Scenes/Level-Alpha-001.unity
   - enabled: 1
     path: Assets/Scenes/Levels_formal/Level_00.unity
+  - enabled: 1
+    path: Assets/Scenes/Levels_formal/Level_Tutorial_Rotation.unity
   - enabled: 1
     path: Assets/Scenes/Levels_formal/Level_01.unity
   - enabled: 1
