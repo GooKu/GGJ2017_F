@@ -173,7 +173,7 @@ public class CharacterController : MonoBehaviour
         {
             var s = Mathf.InverseLerp(startTime, endTime, Time.time);
             Current.position = Vector3.Lerp(Current.position, doorTrans.position, s);
-            Current.localScale = Vector3.Lerp(Current.localScale, new Vector3(.1f, .1f, .1f), s);
+            Current.localScale = Vector3.Lerp(Current.localScale, new Vector3(.01f, .01f, .01f), s);
             yield return null;
         } while (Time.time < endTime);
 
