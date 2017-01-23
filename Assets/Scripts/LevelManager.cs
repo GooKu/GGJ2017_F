@@ -37,15 +37,17 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void NextLevel(){
-		this.StartCoroutine (this.ToLevel(this.CurrentLevel + 1));
+        GameDataManager.Instance.ClearLevel();
+        this.StartCoroutine (this.ToLevel(this.CurrentLevel + 1));
 	}
 
 	public void PreviousLevel(){
-		this.StartCoroutine (this.ToLevel(this.CurrentLevel - 1));
+        GameDataManager.Instance.ClearLevel();
+        this.StartCoroutine (this.ToLevel(this.CurrentLevel - 1));
 	}
 
 	public void FirstLevel(){
-		GameDataManager.Instance.Reset ();
+		GameDataManager.Instance.ClearAll ();
 		this.StartCoroutine (this.ToLevel(0, false));
 	}
 
@@ -70,12 +72,6 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		this.loading = true;
-
-        // Clear
-        if (levelIndex != this.CurrentLevel)
-        {
-            GameDataManager.Instance.ClearTrails();
-        }
 
         // Fade..
         if (this.fadeEffect != null && useFade) {

@@ -8,6 +8,15 @@ public class RotatePlaneCtrl : MonoBehaviour {
     private int dir = -1;
     private int Rotate = 1;
     private float r = 0;
+
+    private string dataKey;
+
+    void Awake()
+    {
+        this.dataKey = this.transform.position.ToString() + this.name;
+        this.LoadGameData();
+    }
+
     // Use this for initialization
     void Start () {
 		
@@ -34,5 +43,33 @@ public class RotatePlaneCtrl : MonoBehaviour {
     {
         if (Rotate == 0) Rotate = 1;
         else if (Rotate == 1) Rotate = 0;
+
+        this.SaveGameData();
+    }
+
+    void SaveGameData() {
+        var data = new Data()
+        {
+            Rotate = this.Rotate,
+            Rotation = this.transform.localRotation,
+        };
+
+        GameDataManager.Instance.SaveLevelTempData(this.dataKey, data);
+    }
+
+    void LoadGameData()
+    {
+        Data data;
+        if (GameDataManager.Instance.LoadLevelTempData(this.dataKey, out data))
+        {
+            this.Rotate = data.Rotate;
+            this.transform.localRotation = data.Rotation;
+        }
+    }
+
+    struct Data
+    {
+        public int Rotate;
+        public Quaternion Rotation;
     }
 }
