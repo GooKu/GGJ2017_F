@@ -36,6 +36,23 @@ public class LevelManager : MonoBehaviour {
 		private set;
 	}
 
+    Scene? LastScene
+    {
+        get
+        {
+            return this.lastScene;
+        }
+
+        set
+        {
+            this.lastScene = value;
+            if (value.HasValue)
+            {
+                SceneManager.SetActiveScene(value.Value);
+            }
+        }
+    }
+
 	public void NextLevel(){
         GameDataManager.Instance.ClearLevel();
         this.StartCoroutine (this.ToLevel(this.CurrentLevel + 1));
@@ -78,8 +95,8 @@ public class LevelManager : MonoBehaviour {
 			yield return this.fadeEffect.FadeOut ();
 		}
 
-		if (this.lastScene != null){
-			var u = this.lastScene.Value;
+		if (this.LastScene != null){
+			var u = this.LastScene.Value;
 			if (u.isLoaded && u.IsValid()) {
 				yield return SceneManager.UnloadSceneAsync (u);
 			}
@@ -93,9 +110,11 @@ public class LevelManager : MonoBehaviour {
 			yield return this.fadeEffect.FadeIn ();
 		}
 
-		this.CurrentLevel = levelIndex;
-		this.lastScene = s;
-		this.loading = false;
+       
+
+        this.CurrentLevel = levelIndex;
+		this.LastScene = s;
+        this.loading = false;
 	}
 		
 	void Start () {
@@ -120,8 +139,8 @@ public class LevelManager : MonoBehaviour {
 			else
 			{
 				this.CurrentLevel = buildIndex - 1;
-				this.lastScene = targetScene;
-				return;
+				this.LastScene = targetScene;
+                return;
 			}
 		}
 		#endif
