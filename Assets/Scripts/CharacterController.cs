@@ -108,7 +108,7 @@ public class CharacterController : MonoBehaviour
     {
         if (failSprite == null)
             yield break;
-        Current.GetComponent<Rigidbody2D>().isKinematic = true;
+
         Current.GetComponent<SpriteRenderer>().sprite = failSprite;
 
         yield return new WaitForSeconds(2f);
@@ -121,7 +121,18 @@ public class CharacterController : MonoBehaviour
         character.GetComponent<MouseDrag>().enabled = true;
         CharacterChecker checker = character.GetComponent<CharacterChecker>();
         checker.SetBoundary(boundary);
-        checker.OutOfBounds += this.Died;
+        checker.OutOfBounds += this.OnOutOfBounds;
+    }
+
+    private void OnOutOfBounds(object sender, System.EventArgs e)
+    {
+        var rigid = this.Current.GetComponent<Rigidbody2D>();
+        rigid.velocity = -rigid.velocity;
+
+        if (this.Died != null)
+        {
+            this.Died(this, e);
+        }
     }
 
     public IEnumerator PlayStartAnim(int charId)
@@ -152,7 +163,11 @@ public class CharacterController : MonoBehaviour
         var startTime = Time.time;
         var endTime = startTime + time;
 
-        Current.GetComponent<Rigidbody2D>().isKinematic = true;
+        var rigid = Current.GetComponent<Rigidbody2D>();
+        rigid.isKinematic = true;
+        rigid.velocity = Vector2.zero;
+        rigid.angularDrag = 0;
+        rigid.angularVelocity = 0;
 
         do
         {
