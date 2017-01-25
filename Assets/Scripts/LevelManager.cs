@@ -72,7 +72,12 @@ public class LevelManager : MonoBehaviour {
 		this.StartCoroutine (this.ToLevel(this.CurrentLevel));
 	}
 
-	void Awake(){
+    public void ToCredits()
+    {
+        this.StartCoroutine(this.ToLevel(this.TotalLevels - 1, false));
+    }
+
+    void Awake(){
 		if (singleton != null) {
 			Debug.LogError ("Multiple LevelManager", this);
 			return;
