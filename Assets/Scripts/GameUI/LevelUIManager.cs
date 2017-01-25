@@ -76,7 +76,10 @@ public class LevelUIManager : MonoBehaviour
 		this.countDownText.text = string.Empty;
         this.returnBtn.onClick.AddListener(this.OnReturnClick);
         this.selectionBtn.onClick.AddListener(this.OnSelectionClick);
-	}
+
+        this.returnBtn.gameObject.SetActive(false);
+        this.selectionBtn.gameObject.SetActive(false);
+    }
 		
 	public void SetCountDown(float time, bool infinity)
     {

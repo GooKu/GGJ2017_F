@@ -82,7 +82,6 @@ public class LevelController : MonoBehaviour {
 		this.levelUIManager.ReturnButtonClicked += (sender, e) => { re = true; };
         this.levelUIManager.SelectionButtonClicked += (sender, e) => { doSelect = true; };
 
-        SELECT_CHAR:
 		// 初始化
 		this.cameraController.UpdateMode (CameraController.Mode.Stop);
 		this.cameraController.Init (this.characterController.transform, this.cameraRegion);
@@ -93,6 +92,8 @@ public class LevelController : MonoBehaviour {
 
         // 播放開始動畫
         yield return this.StartCoroutine(this.characterController.PlayStartAnim(charId));
+
+        SELECT_CHAR:
 
         // 瀏覽模式
         this.cameraRegion.enabled = true;//gooku: tmp enable for get correct  bounds;
@@ -131,16 +132,19 @@ public class LevelController : MonoBehaviour {
                         yield return null;
                     }
 
-                    var newCharId = charSelector.CharaterId;
-                    if (newCharId != GameDataManager.Instance.CharacterId)
-                    {
-                        GameDataManager.Instance.CharacterId = newCharId;
-                        LevelManager.Singleton.ResetLevel();
-                        yield break;
-                    }
 
                     this.characterController.AllowFire = true;
                     this.cameraController.UpdateMode(CameraController.Mode.PlayerControl);
+
+                    var newCharId = charSelector.CharaterId;
+                    if (newCharId != GameDataManager.Instance.CharacterId)
+                    {
+                        charId = GameDataManager.Instance.CharacterId = newCharId;
+                        // LevelManager.Singleton.ResetLevel();
+                        //yield break;
+
+                        goto SELECT_CHAR;
+                    }
 
                     continue;
                 }

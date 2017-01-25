@@ -7,6 +7,16 @@ public class BoundcinessController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        if (collider.tag != "Player")
+        {
+            return;
+        }
+
+        // TODO: 這會造成 BUG 先關閉，之後重新實做
+        return;
+       // var rigi2D = collider.GetComponent<Rigidbody2D>();
+ 
+
         if (collider.tag == "Ground01")
         {
             //pm.bounciness = 1.0f;
@@ -43,6 +53,7 @@ public class BoundcinessController : MonoBehaviour
 
     void OnDestroy()
     {
-        gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 1.0f;
+        // TODO: WHY? 不要亂設定
+       // gameObject.GetComponent<CircleCollider2D>().sharedMaterial.bounciness = 1.0f;
     }
 }
