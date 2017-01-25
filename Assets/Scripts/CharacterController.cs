@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    public AudioClip myAuioClip;
     [SerializeField]
     private Sprite failSprite;
 
@@ -110,6 +111,7 @@ public class CharacterController : MonoBehaviour
             yield break;
 
         Current.GetComponent<SpriteRenderer>().sprite = failSprite;
+        gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.1f);
 
         yield return new WaitForSeconds(2f);
     }
