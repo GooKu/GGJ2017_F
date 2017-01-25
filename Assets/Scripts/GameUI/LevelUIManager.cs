@@ -15,7 +15,47 @@ public class LevelUIManager : MonoBehaviour
     [SerializeField]
     private Button returnBtn;
 
+    [SerializeField]
+    private Button selectionBtn;
+
     public event System.EventHandler ReturnButtonClicked;
+
+    public event System.EventHandler SelectionButtonClicked;
+
+    public enum UIMode
+    {
+        None,
+
+        /// <summary>
+        /// 等待球發射
+        /// </summary>
+        WaitFiring,
+
+        /// <summary>
+        /// 等待球進到門裡
+        /// </summary>
+        WaitGoaling,
+    }
+
+    UIMode mode;
+
+    public UIMode Mode
+    {
+        get
+        {
+            return this.mode;
+        }
+
+        set
+        {
+            if (this.mode != value)
+            {
+                this.mode = value;
+                this.returnBtn.gameObject.SetActive(value == UIMode.WaitGoaling);
+                this.selectionBtn.gameObject.SetActive(value == UIMode.WaitFiring);
+            }
+        }
+    }
 
     public CharacterSelector CharacterSelector{
 		get{
@@ -34,6 +74,8 @@ public class LevelUIManager : MonoBehaviour
 	void Awake()
 	{
 		this.countDownText.text = string.Empty;
+        this.returnBtn.onClick.AddListener(this.OnReturnClick);
+        this.selectionBtn.onClick.AddListener(this.OnSelectionClick);
 	}
 		
 	public void SetCountDown(float time, bool infinity)
@@ -45,13 +87,19 @@ public class LevelUIManager : MonoBehaviour
 		}
     }
 
-    public void ShowReturnBtn(bool isShow)
+    void OnReturnClick()
     {
-        this.returnBtn.gameObject.SetActive(isShow);
+        if (this.ReturnButtonClicked != null)
+        {
+            this.ReturnButtonClicked(this, System.EventArgs.Empty);
+        }
     }
 
-    public void OnReturnClick()
+    void OnSelectionClick()
     {
-        this.ReturnButtonClicked(this, System.EventArgs.Empty);
+        if (this.SelectionButtonClicked != null)
+        {
+            this.SelectionButtonClicked(this, System.EventArgs.Empty);
+        }
     }
 }

@@ -8,6 +8,40 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private Sprite failSprite;
 
+    [SerializeField]
+    private CharacterInfo[] characters = new CharacterInfo[0];
+
+    public CharacterInfo[] CharacterList
+    {
+        get
+        {
+            return this.characters;
+        }
+    }
+
+    bool allowFire = true;
+    public bool AllowFire
+    {
+        get
+        {
+            return this.allowFire;
+        }
+
+        set
+        {
+            if (this.allowFire != value)
+            {
+                this.allowFire = value;
+
+                if (this.Current != null)
+                {
+                    var md = this.Current.GetComponent<MouseDrag>();
+                    md.enabled = value;
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// 飛出去
     /// </summary>
@@ -35,12 +69,6 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
-    public List<CharacterInfo> UnLockCharacterInfoList
-    {
-        get;
-        private set;
-    }
-
     private bool isPlayingStartAnim;
 
     void Awake()
@@ -48,23 +76,22 @@ public class CharacterController : MonoBehaviour
         // TODO: 僅註冊有使用到的物件
         var mds = GetComponentsInChildren<MouseDrag>();
         int unlockIndex = GameDataManager.Instance.GetUnlockIndexChracter();
-        UnLockCharacterInfoList = new List<CharacterInfo>();
+
         foreach (var md in mds)
         {
             md.enabled = false;
             md.gameObject.SetActive(false);
-
-            CharacterInfo info = md.GetComponent<CharacterInfo>();
-            if (info.Id <= unlockIndex)
-                UnLockCharacterInfoList.Add(info);
-            else
-                continue;
-
-            md.GetComponent<MouseDrag>().Fired += this.OnFired;
-            md.GetComponent<MouseDrag>().Firing += this.OnFiring;
-            md.GetComponent<MouseDrag>().FiringCancel += this.OnFiringCancel;
+            md.Fired += this.OnFired;
+            md.Firing += this.OnFiring;
+            md.FiringCancel += this.OnFiringCancel;
         }
+
         transform.Find("StartAnim").gameObject.SetActive(false);
+
+        for (var i = 0; i < this.characters.Length; i++)
+        {
+            this.characters[i].Id = i;
+        }
     }
 
     void OnFired(object sender, System.EventArgs e)
@@ -118,7 +145,12 @@ public class CharacterController : MonoBehaviour
 
     public void EnableCharacter(int id, BoxCollider2D boundary)
     {
-        GameObject character = UnLockCharacterInfoList.Find(x => x.Id == id).gameObject;
+        if (id < 0 || id >= this.characters.Length)
+        {
+            throw new System.ArgumentNullException("id");
+        }
+
+        GameObject character = this.characters[id].gameObject;
         character.SetActive(true);
         character.GetComponent<MouseDrag>().enabled = true;
         CharacterChecker checker = character.GetComponent<CharacterChecker>();
@@ -139,6 +171,8 @@ public class CharacterController : MonoBehaviour
 
     public IEnumerator PlayStartAnim(int charId)
     {
+        isPlayingStartAnim = true;
+
         GameObject animObj = transform.Find("StartAnim").gameObject;
         animObj.SetActive(true);
 
@@ -148,13 +182,9 @@ public class CharacterController : MonoBehaviour
         animObj.SetActive(false);
     }
 
-    public void StartAnimPlay()
-    {
-        isPlayingStartAnim = true;
-    }
-
     public void StartAnimFinish()
     {
+        // Call by animation event
         isPlayingStartAnim = false;
     }
 

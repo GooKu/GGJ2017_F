@@ -19,7 +19,7 @@ public class CharacterSelector : MonoBehaviour
 		private set;
 	}
 
-	public void BeginSelect(List<CharacterInfo> list){
+	public void BeginSelect(CharacterInfo[] list){
 		this.IsSelecting = true;
 		this.characterSelectUI.Open (list);
 	}
