@@ -7,4 +7,9 @@ public class MenuPage : MonoBehaviour {
 	public void StartGame(){
 		LevelManager.Singleton.NextLevel ();
 	}
+
+    public void ShowCredits()
+    {
+        LevelManager.Singleton.ToCredits();
+    }
 }
