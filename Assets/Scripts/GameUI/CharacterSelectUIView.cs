@@ -18,15 +18,17 @@ public class CharacterSelectUIView : MonoBehaviour
     {
         itemWidth = sampleItem.GetComponent<RectTransform>().sizeDelta.x;
         itemHeigth = sampleItem.GetComponent<RectTransform>().sizeDelta.y;
+
+        gameObject.SetActive(false);
     }
 
-    public void Open(List<CharacterInfo> characterList)
+    public void Open(CharacterInfo[] characterList)
     {
         gameObject.SetActive(true);
         sampleItem.gameObject.SetActive(false);
         float buttonPosition = 0;
 
-        for (int i = 0; i < characterList.Count; i++)
+        for (int i = 0; i < characterList.Length; i++)
         {
             CharacterSelectItemView item;
             if (itemList.Count == i)

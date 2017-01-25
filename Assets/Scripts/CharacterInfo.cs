@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CharacterInfo : MonoBehaviour
 {
-    public int Id { get { return id; } }
-    [SerializeField]
-    public int id;
+    // ID will set by CharacterController
+    public int Id { get; set; }
+
     public SpriteRenderer Image { get { return image; } }
     [SerializeField]
     public SpriteRenderer image;

@@ -18,10 +18,25 @@ public class GameDataManager
 	}
 
 	int chracterUnlockIndex = 2;//gooku: tmp fot test (INIT VALUE)
-	List<TrailController> historyTrails = new List<TrailController>();
+    int characterSelectionId = 0;
+
+    List<TrailController> historyTrails = new List<TrailController>();
     Dictionary<string, object> levelData = new Dictionary<string, object>();
 
-	public void ClearAll(){
+    public int CharacterId
+    {
+        get
+        {
+            return this.characterSelectionId;
+        }
+
+        set
+        {
+            this.characterSelectionId = value;
+        }
+    }
+
+    public void ClearAll(){
 	    this.ClearTrails ();
         this.levelData.Clear();
 

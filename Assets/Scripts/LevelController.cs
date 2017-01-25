@@ -68,6 +68,8 @@ public class LevelController : MonoBehaviour {
 		var died = false;
 		var re = false;
 
+        var doSelect = false;
+
 		var firing = false;
 		var fired = false;
 		var firingCancel = false;
@@ -78,29 +80,19 @@ public class LevelController : MonoBehaviour {
 		this.characterController.Died += (sender, e) => { died = true; };
 
 		this.levelUIManager.ReturnButtonClicked += (sender, e) => { re = true; };
+        this.levelUIManager.SelectionButtonClicked += (sender, e) => { doSelect = true; };
 
-		SELECT_CHAR:
+        SELECT_CHAR:
 		// 初始化
 		this.cameraController.UpdateMode (CameraController.Mode.Stop);
 		this.cameraController.Init (this.characterController.transform, this.cameraRegion);
 		this.cameraRegion.enabled = false;
-		this.levelUIManager.ShowReturnBtn(false);
+        this.levelUIManager.Mode = LevelUIManager.UIMode.None;
 
-		// 開啟選單
-		this.characterController.RecoverCurrent();
+        var charId = GameDataManager.Instance.CharacterId;
 
-		var charList = this.characterController.UnLockCharacterInfoList;
-		var charSelector = this.levelUIManager.CharacterSelector;
-		charSelector.BeginSelect(charList);
-		while (charSelector.IsSelecting) {
-			yield return null;
-		}
-
-		var charId = charSelector.CharaterId;
-
-		// 播放開始動畫
-		yield return this.StartCoroutine(this.characterController.PlayStartAnim(charId));
-        
+        // 播放開始動畫
+        yield return this.StartCoroutine(this.characterController.PlayStartAnim(charId));
 
         // 瀏覽模式
         this.cameraRegion.enabled = true;//gooku: tmp enable for get correct  bounds;
@@ -111,20 +103,51 @@ public class LevelController : MonoBehaviour {
 		}
 		this.cameraRegion.enabled = false;
 
-		//this.levelUIManager.ShowReturnBtn(true);
-
-		// 發射流程
-		{
-			fired = false;
+        // 發射流程
+        {
+            fired = false;
 			firing = false;
 			firingCancel = false;
 
-			// 等待發射
-			while (!fired) {
+            this.levelUIManager.Mode = LevelUIManager.UIMode.WaitFiring;
+
+            // 等待發射
+            while (!fired) {
 				yield return null;
 
-				// 準備發射
-				if (firing) {
+                if (doSelect)
+                {
+                    doSelect = false;
+
+                    this.cameraController.UpdateMode(CameraController.Mode.Stop);
+                    this.characterController.AllowFire = false;
+
+                    // 開啟選單
+                    var charList = this.characterController.CharacterList;
+                    var charSelector = this.levelUIManager.CharacterSelector;
+                    charSelector.BeginSelect(charList);
+                    while (charSelector.IsSelecting)
+                    {
+                        yield return null;
+                    }
+
+                    var newCharId = charSelector.CharaterId;
+                    if (newCharId != GameDataManager.Instance.CharacterId)
+                    {
+                        GameDataManager.Instance.CharacterId = newCharId;
+                        LevelManager.Singleton.ResetLevel();
+                        yield break;
+                    }
+
+                    this.characterController.AllowFire = true;
+                    this.cameraController.UpdateMode(CameraController.Mode.PlayerControl);
+
+                    continue;
+                }
+
+                // 準備發射
+                if (firing) {
+                    this.levelUIManager.Mode = LevelUIManager.UIMode.None;
 					this.cameraController.UpdateMode (CameraController.Mode.Stop);
 				}
 
@@ -132,22 +155,16 @@ public class LevelController : MonoBehaviour {
 				if (firingCancel) {
 					firing = false;
 					firingCancel = false;
-					this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
+                    this.levelUIManager.Mode = LevelUIManager.UIMode.WaitFiring;
+                    this.cameraController.UpdateMode (CameraController.Mode.PlayerControl);
 				}
-
-				/*
-				 * 流程有 BUG
-				 * if (re) {
-					re = false;
-					goto SELECT_CHAR;
-				}*/
 			}
 		}
 			
 		// 發射初始化
-		this.levelUIManager.ShowReturnBtn(true);
+        this.levelUIManager.Mode = LevelUIManager.UIMode.WaitGoaling;
 
-		var passed = false;
+        var passed = false;
 		var giveup = false;
 
 		this.door.Passed += (sender, e) => {passed = true;};
