@@ -172,13 +172,13 @@ public class LevelController : MonoBehaviour {
 			if ((Time.time >= endTime && !infinity) || died || giveup) {
 				// 時間限制到，演出失敗動畫 & 重置場景
 				this.door.enabled = false;
+                this.KeepTrail();
 
-				if (this.showDie) {
+                if (this.showDie) {
 					yield return this.StartCoroutine (this.characterController.FailHandle ());
 				}
 
 				// Reset level
-				this.KeepTrail ();
 				this.ResetLevel ();
 				yield break;
 			}
@@ -236,7 +236,9 @@ public class LevelController : MonoBehaviour {
 			GameObject.Destroy (go.gameObject);
 		}
 
-		var trail = this.characterController.CurrentTrail;
+        history.Clear();
+
+        var trail = this.characterController.CurrentTrail;
 		if (trail != null) {
 			var go = trail.gameObject;
 			go.transform.SetParent (null);
