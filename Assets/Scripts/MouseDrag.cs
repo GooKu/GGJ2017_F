@@ -82,11 +82,11 @@ public class MouseDrag : MonoBehaviour {
                 if (!isDragingWithForce)
                 {
                     direction = direction.normalized;
-                    rb.velocity = -direction * speed * 1000 * Time.deltaTime;
+                    rb.velocity = -direction * speed * 20;
                 }
                 else
                 {
-                    rb.velocity = -direction * speed * 4000 * Time.deltaTime;
+                    rb.velocity = -direction * speed * 80;
                 }
                 rb.isKinematic = false;
 
