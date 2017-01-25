@@ -19,7 +19,7 @@ public class Ground03Ctrl : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D Coll)
     {
-        gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.1f);
+        gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.08f);
 
         //rb = Coll.gameObject.GetComponent<Rigidbody2D>();
         //rb.velocity += new Vector2(0, -100);
