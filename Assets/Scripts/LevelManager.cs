@@ -74,7 +74,8 @@ public class LevelManager : MonoBehaviour {
 
     public void ToCredits()
     {
-        this.StartCoroutine(this.ToLevel(this.TotalLevels - 1, false));
+
+        this.StartCoroutine(this.ToLevel(this.TotalLevels - 1));
     }
 
     void Awake(){
