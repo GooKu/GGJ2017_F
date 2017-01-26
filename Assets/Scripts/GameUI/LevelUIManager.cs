@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelUIManager : MonoBehaviour
 {
+    [SerializeField]
+    private Text levelNumText;
 
     [SerializeField]
     private Text countDownText;
@@ -17,6 +20,7 @@ public class LevelUIManager : MonoBehaviour
 
     [SerializeField]
     private Button selectionBtn;
+    
 
     public event System.EventHandler ReturnButtonClicked;
 
@@ -69,16 +73,23 @@ public class LevelUIManager : MonoBehaviour
 		this.characterSelector = this.transform.GetComponentInChildren<CharacterSelector>();
         this.countDownText = this.transform.GetComponentInChildren<Text>();
         this.returnBtn = this.transform.GetComponentInChildren<Button>();
+
+        // show Scene name
+        this.levelNumText = this.transform.GetComponentInChildren<Text>();
     }
 
-	void Awake()
-	{
-		this.countDownText.text = string.Empty;
+    void Awake()
+	{ 
+        this.countDownText.text = string.Empty;
         this.returnBtn.onClick.AddListener(this.OnReturnClick);
         this.selectionBtn.onClick.AddListener(this.OnSelectionClick);
 
         this.returnBtn.gameObject.SetActive(false);
         this.selectionBtn.gameObject.SetActive(false);
+        
+        // show Scene name
+        this.levelNumText = this.transform.GetComponentInChildren<Text>();
+        Debug.Log(SceneManager.GetActiveScene().name);
     }
 		
 	public void SetCountDown(float time, bool infinity)
