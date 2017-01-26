@@ -90,9 +90,9 @@ public class LevelUIManager : MonoBehaviour
 	public void SetCountDown(float time, bool infinity)
     {
 		if (infinity) {
-			countDownText.text = SceneManager.GetSceneAt(1).name + "   " + string.Empty;
+			countDownText.text = "Level " + LevelManager.Singleton.CurrentLevel;
 		} else {
-			countDownText.text = SceneManager.GetSceneAt(1).name + "   " + string.Format ("{0:N2}", time);
+			countDownText.text = "Level " + LevelManager.Singleton.CurrentLevel + "   " + string.Format ("{0:N2}", time);
 		}
     }
 
