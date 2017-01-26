@@ -20,6 +20,14 @@ Online WebGL demo, [click here](https://gooku.github.io/GGJ2017_F/)
 ![Screenshot 003](./Images/screenshot003.jpg)
 ![Screenshot 004](./Images/screenshot004.jpg)
 
+## Sound Effects Source
+* [3 Leaf Productions - Audio Pack](http://u3d.as/9eG)
+* [8 Bit Retro Rampage Free](http://u3d.as/4qq)
+* [Fantasy SFX for Particle Distort Texture effect library](http://u3d.as/i8W)
+* [Game Sound Solutions - 8 bits Elements](http://u3d.as/7iG)
+* [Unity_Free_8bit_snd](http://u3d.as/8dP)
+* [SoundBits_FreeSFX](http://u3d.as/cpH)
+
 ## Members
 
 * [王思元 Siyuan Wang](http://twsiyuan.com)
