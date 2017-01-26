@@ -28,22 +28,35 @@ public class CharacterSelectUIView : MonoBehaviour
         sampleItem.gameObject.SetActive(false);
         float buttonPosition = 0;
 
+        var contentRoot = sampleItem.transform.parent;
         for (int i = 0; i < characterList.Length; i++)
         {
             CharacterSelectItemView item;
             if (itemList.Count == i)
             {
                 GameObject itemObj = Instantiate<GameObject>(sampleItem.gameObject);
-                itemObj.transform.SetParent(sampleItem.transform.parent);
+                itemObj.transform.SetParent(contentRoot);
+
+                var pos = itemObj.transform.localPosition;
+                pos.z = 0;
+                itemObj.transform.localPosition = pos;
+
                 item = itemObj.GetComponent<CharacterSelectItemView>();
                 itemList.Add(item);
-                RectTransform rect = item.GetComponent<RectTransform>();
-                rect.localScale = Vector3.one;
-                buttonPosition += itemWidth * i;
-                rect.anchoredPosition3D = new Vector3(buttonPosition, 0, 0);
+
+                // 交給 HorizontalLayoutGroup 排位置
+                // RectTransform rect = item.GetComponent<RectTransform>();
+                // rect.localScale = Vector3.one;
+                // buttonPosition += itemWidth * i;
+                // rect.anchoredPosition3D = new Vector3(buttonPosition, 0, 0);
             }
             else
+            {
                 item = itemList[i];
+            }
+
+            // var layout = contentRoot.GetComponent<HorizontalLayoutGroup>();
+            // layout.enabled = false;
 
             item.gameObject.SetActive(true);
             item.Refresh(characterList[i]);

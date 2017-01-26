@@ -74,16 +74,17 @@ public class CharacterController : MonoBehaviour
     void Awake()
     {
         // TODO: 僅註冊有使用到的物件
-        var mds = GetComponentsInChildren<MouseDrag>();
-        int unlockIndex = GameDataManager.Instance.GetUnlockIndexChracter();
-
-        foreach (var md in mds)
+        foreach (var charInfo in this.characters)
         {
+            var md = charInfo.GetComponent<MouseDrag>();
             md.enabled = false;
             md.gameObject.SetActive(false);
             md.Fired += this.OnFired;
             md.Firing += this.OnFiring;
             md.FiringCancel += this.OnFiringCancel;
+
+            var checker = charInfo.GetComponent<CharacterChecker>();
+            checker.OutOfBounds += this.OnOutOfBounds;
         }
 
         transform.Find("StartAnim").gameObject.SetActive(false);
@@ -96,14 +97,13 @@ public class CharacterController : MonoBehaviour
 
     void OnFired(object sender, System.EventArgs e)
     {
-        this.Current = (sender as MouseDrag).transform;
         (sender as MouseDrag).enabled = false;
 
         if (this.Fired != null)
         {
             this.Fired(this, e);
         }
-        Current.GetComponent<CharacterChecker>().EnableStilCheck(this.OnStill);
+
     }
 
     void OnFiring(object sender, System.EventArgs e)
@@ -119,16 +119,6 @@ public class CharacterController : MonoBehaviour
         if (this.FiringCancel != null)
         {
             this.FiringCancel(this, e);
-        }
-    }
-    void OnStill(object sender, System.EventArgs e)
-    {
-        // TODO: 
-        this.Current = (sender as CharacterChecker).transform;
-
-        if (this.Fired != null)
-        {
-            // this.Still(this, e);
         }
     }
 
@@ -150,12 +140,17 @@ public class CharacterController : MonoBehaviour
             throw new System.ArgumentNullException("id");
         }
 
-        GameObject character = this.characters[id].gameObject;
-        character.SetActive(true);
+        if (this.Current != null)
+        {
+            this.Current.gameObject.SetActive(false);
+        }
+
+        var character = this.characters[id].gameObject;
         character.GetComponent<MouseDrag>().enabled = true;
-        CharacterChecker checker = character.GetComponent<CharacterChecker>();
-        checker.SetBoundary(boundary);
-        checker.OutOfBounds += this.OnOutOfBounds;
+        character.GetComponent<CharacterChecker>().SetBoundary(boundary);
+
+        this.Current = character.transform;
+        this.Current.gameObject.SetActive(true);
     }
 
     private void OnOutOfBounds(object sender, System.EventArgs e)
