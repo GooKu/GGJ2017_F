@@ -74,8 +74,8 @@ public class LevelUIManager : MonoBehaviour
         this.countDownText = this.transform.GetComponentInChildren<Text>();
         this.returnBtn = this.transform.GetComponentInChildren<Button>();
 
-        // show Scene name
-        this.levelNumText = this.transform.GetComponentInChildren<Text>();
+        // show scene name
+        this.levelNumText.text = SceneManager.GetSceneAt(1).name;
     }
 
     void Awake()
@@ -86,10 +86,9 @@ public class LevelUIManager : MonoBehaviour
 
         this.returnBtn.gameObject.SetActive(false);
         this.selectionBtn.gameObject.SetActive(false);
-        
-        // show Scene name
-        this.levelNumText = this.transform.GetComponentInChildren<Text>();
-        Debug.Log(SceneManager.GetActiveScene().name);
+
+        // show scene name
+        this.levelNumText.text = SceneManager.GetSceneAt(1).name;
     }
 		
 	public void SetCountDown(float time, bool infinity)
