@@ -8,7 +8,7 @@ public class CharacterSelector : MonoBehaviour
 	[SerializeField]
 	private CharacterSelectUIView characterSelectUI;
 
-	private void  Reset()
+	private void Reset()
 	{
 		this.characterSelectUI = this.transform.GetComponentInChildren<CharacterSelectUIView>();
 	}
@@ -19,9 +19,10 @@ public class CharacterSelector : MonoBehaviour
 		private set;
 	}
 
-	public void BeginSelect(CharacterInfo[] list){
+	public void BeginSelect(CharacterInfo[] list, int current){
 		this.IsSelecting = true;
-		this.characterSelectUI.Open (list);
+        this.CharaterId = current;
+        this.characterSelectUI.Open (list);
 	}
 
 	public void EndSelect(int id){
@@ -36,10 +37,25 @@ public class CharacterSelector : MonoBehaviour
 		this.characterSelectUI.Close();
 	}
 
-	public int CharaterId {
+    public void EndSelect()
+    {
+        this.IsSelecting = false;
+        this.characterSelectUI.Close();
+    }
+
+    public int CharaterId {
 		get;
 		private set;
 	}
 
-	// TODO:
+    void Update()
+    {
+        if (this.IsSelecting)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                this.EndSelect();
+            }
+        }
+    }
 }

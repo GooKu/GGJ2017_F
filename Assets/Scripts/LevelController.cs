@@ -126,7 +126,7 @@ public class LevelController : MonoBehaviour {
                     // 開啟選單
                     var charList = this.characterController.CharacterList;
                     var charSelector = this.levelUIManager.CharacterSelector;
-                    charSelector.BeginSelect(charList);
+                    charSelector.BeginSelect(charList, charId);
                     while (charSelector.IsSelecting)
                     {
                         yield return null;
