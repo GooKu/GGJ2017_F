@@ -7,9 +7,6 @@ using UnityEngine.SceneManagement;
 public class LevelUIManager : MonoBehaviour
 {
     [SerializeField]
-    private Text levelNumText;
-
-    [SerializeField]
     private Text countDownText;
 
 	[SerializeField]
@@ -90,9 +87,9 @@ public class LevelUIManager : MonoBehaviour
 	public void SetCountDown(float time, bool infinity)
     {
 		if (infinity) {
-			countDownText.text = "Level " + LevelManager.Singleton.CurrentLevel;
+            countDownText.text = string.Empty;
 		} else {
-			countDownText.text = "Level " + LevelManager.Singleton.CurrentLevel + "   " + string.Format ("{0:N2}", time);
+			countDownText.text = string.Format ("{0:N2}", time);
 		}
     }
 

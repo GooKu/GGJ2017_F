@@ -107,8 +107,10 @@ public class LevelManager : MonoBehaviour {
 				yield return SceneManager.UnloadSceneAsync (u);
 			}
 		}
-			
-		var count = SceneManager.sceneCount;
+
+        this.CurrentLevel = levelIndex;
+
+        var count = SceneManager.sceneCount;
 		yield return SceneManager.LoadSceneAsync(levelIndex+1, LoadSceneMode.Additive);
 		var s = SceneManager.GetSceneAt (count);
 
@@ -116,10 +118,11 @@ public class LevelManager : MonoBehaviour {
 			yield return this.fadeEffect.FadeIn ();
 		}
 
-       
+#if UNITY_EDITOR
+        Debug.Log("Level: " + this.CurrentLevel.ToString() + "/ " + this.TotalLevels.ToString());
+#endif
 
-        this.CurrentLevel = levelIndex;
-		this.LastScene = s;
+        this.LastScene = s;
         this.loading = false;
 	}
 		
