@@ -9,6 +9,9 @@ public class CharacterController : MonoBehaviour
     private Sprite failSprite;
 
     [SerializeField]
+    private CharacterStartEffectController startEffect;
+
+    [SerializeField]
     private CharacterInfo[] characters = new CharacterInfo[0];
 
     public CharacterInfo[] CharacterList
@@ -69,8 +72,6 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
-    private bool isPlayingStartAnim;
-
     void Awake()
     {
         // TODO: 僅註冊有使用到的物件
@@ -86,8 +87,6 @@ public class CharacterController : MonoBehaviour
             var checker = charInfo.GetComponent<CharacterChecker>();
             checker.OutOfBounds += this.OnOutOfBounds;
         }
-
-        transform.Find("StartAnim").gameObject.SetActive(false);
 
         for (var i = 0; i < this.characters.Length; i++)
         {
@@ -166,21 +165,15 @@ public class CharacterController : MonoBehaviour
 
     public IEnumerator PlayStartAnim(int charId)
     {
-        isPlayingStartAnim = true;
+        this.startEffect.gameObject.SetActive(true);
 
-        GameObject animObj = transform.Find("StartAnim").gameObject;
-        animObj.SetActive(true);
-
-        while (isPlayingStartAnim)
+        var itr = this.startEffect.Play(charId);
+        while (itr.MoveNext())
+        {
             yield return null;
+        }
 
-        animObj.SetActive(false);
-    }
-
-    public void StartAnimFinish()
-    {
-        // Call by animation event
-        isPlayingStartAnim = false;
+        this.startEffect.gameObject.SetActive(false);
     }
 
     public IEnumerator PlayEndAnim(Transform doorTrans)

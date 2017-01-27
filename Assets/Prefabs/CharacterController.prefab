@@ -84,6 +84,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1216909320139042
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4371301877411804}
+  - component: {fileID: 212542723710761562}
+  m_Layer: 0
+  m_Name: Ball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1251020513529448
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,9 +130,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4269591818118552}
-  - component: {fileID: 212764278184650778}
+  - component: {fileID: 114047842804926432}
+  - component: {fileID: 212971298119980204}
+  - component: {fileID: 95431184949344994}
   m_Layer: 0
-  m_Name: StartAnim
+  m_Name: StartAnimation
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +171,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4426911786628770}
   - component: {fileID: 114757551886366448}
-  - component: {fileID: 95036688278060852}
   - component: {fileID: 82234357301661956}
   m_Layer: 0
   m_Name: CharacterController
@@ -237,7 +254,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4371301877411804}
   m_Father: {fileID: 4426911786628770}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -255,6 +273,19 @@ Transform:
   m_Father: {fileID: 4426911786628770}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4371301877411804
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1216909320139042}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4269591818118552}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4426911786628770
 Transform:
   m_ObjectHideFlags: 1
@@ -262,7 +293,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1608249819073456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -490, y: 230, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4714323330862712}
@@ -556,16 +587,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!95 &95036688278060852
+--- !u!95 &95431184949344994
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1608249819073456}
+  m_GameObject: {fileID: 1348416259627200}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c829630e68a8de343988ffb3cf2b4d3d, type: 2}
+  m_Controller: {fileID: 9100000, guid: dc677a502b30ff5438f9c8cacb41d76c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1002,6 +1033,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 212134878100902500}
   introduction: Rock
+--- !u!114 &114047842804926432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1348416259627200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47915b9acdc709f458a8357595e0d346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1048576
+  targetOffset: {x: 0, y: 47.2996}
+  initWait: 0.45
+  jumpSpeed: 1200
+  ballSprite: {fileID: 212542723710761562}
+  ballSprites:
+  - {fileID: 21300000, guid: a7d7247c6cf13974896ffb1da19642d9, type: 3}
+  - {fileID: 21300000, guid: b0499b6f585de01418a7a40d6028254c, type: 3}
+  - {fileID: 21300000, guid: 1d8b6f8160cb598479f3e716f20e58ba, type: 3}
+  - {fileID: 21300000, guid: b030198656674d047a5e48f7485f355e, type: 3}
 --- !u!114 &114068713636526938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1197,6 +1251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAuioClip: {fileID: 8300000, guid: 1d188f61ce6834b4d9a9781257e1e309, type: 3}
   failSprite: {fileID: 21300000, guid: 20d47b84dd7a01d419d841628dde5529, type: 3}
+  startEffect: {fileID: 114047842804926432}
   characters:
   - {fileID: 114770794986838662}
   - {fileID: 114730345382388436}
@@ -1407,7 +1462,42 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!212 &212764278184650778
+--- !u!212 &212542723710761562
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1216909320139042}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: a7d7247c6cf13974896ffb1da19642d9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+--- !u!212 &212971298119980204
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1438,7 +1528,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a7d7247c6cf13974896ffb1da19642d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e29f9cd930f51a438d8223f5f3149ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
