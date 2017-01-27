@@ -7,4 +7,4 @@ PhysicsMaterial2D:
   m_PrefabInternal: {fileID: 0}
   m_Name: Ground03
   friction: 30
-  bounciness: 0
+  bounciness: 0.6
