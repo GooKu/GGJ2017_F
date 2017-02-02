@@ -34,7 +34,7 @@ Online WebGL demo, [click here](https://gooku.github.io/GGJ2017_F/)
 * 艾斯
 * 風車 Fighting
 * 鄒佳宏
-* 阿呀呀
+* [阿呀呀 Cathy Chuang](https://github.com/cathy1666)
 * GOO
 ![Members](./Images/members.jpg)
 
