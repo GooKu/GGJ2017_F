@@ -7,4 +7,4 @@ PhysicsMaterial2D:
   m_PrefabInternal: {fileID: 0}
   m_Name: Character03
   friction: 0.5
-  bounciness: 2
+  bounciness: 1
