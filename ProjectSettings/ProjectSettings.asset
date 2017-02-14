@@ -10,8 +10,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: GGJ
-  productName: GGJ2017_F
+  companyName: GGJ2017_F
+  productName: FlyingBall
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21176471, a: 1}
@@ -232,6 +232,12 @@ PlayerSettings:
       m_Icon: {fileID: 2800000, guid: c0624ea8356c4f947bae0630e4bb6046, type: 3}
       m_Width: 36
       m_Height: 36
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 7eb65d9b49c68f74daec94d89e4d4df3, type: 3}
+      m_Width: 128
+      m_Height: 128
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
   m_BuildTargetVRSettings: []
