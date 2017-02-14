@@ -196,7 +196,16 @@ public class LevelController : MonoBehaviour {
                 this.KeepTrail();
 
                 if (this.showDie) {
-					yield return this.StartCoroutine (this.characterController.FailHandle ());
+                    var r = this.characterController.FailHandle();
+                    while (!r.Done)
+                    {
+                        yield return null;
+                        if (re)
+                        {
+                            // 按下結束，死亡直接結束
+                            break;
+                        }
+                    }
 				}
 
 				// Reset level

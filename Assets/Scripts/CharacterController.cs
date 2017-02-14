@@ -121,15 +121,29 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public IEnumerator FailHandle()
+    public AsyncResult FailHandle()
     {
-        if (failSprite == null)
-            yield break;
+        var r = new AsyncResult();
+        this.StartCoroutine(this.FailHandleCoroutine(r));
+        return r;
+    }
 
-        Current.GetComponent<SpriteRenderer>().sprite = failSprite;
-        gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.1f);
+    private IEnumerator FailHandleCoroutine(AsyncResult r)
+    {
+        try
+        {
+            if (failSprite == null)
+                yield break;
 
-        yield return new WaitForSeconds(2f);
+            Current.GetComponent<SpriteRenderer>().sprite = failSprite;
+            gameObject.GetComponent<AudioSource>().PlayOneShot(myAuioClip, 0.1f);
+
+            yield return new WaitForSeconds(2f);
+        }
+        finally
+        {
+            r.Done = true;
+        }
     }
 
     public void EnableCharacter(int id, BoxCollider2D boundary)
